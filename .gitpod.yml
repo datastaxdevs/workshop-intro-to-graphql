@@ -1,0 +1,24 @@
+tasks:
+  - name: intro-to-graphql
+    before: |
+      nvm install node
+      npm install -g npm@latest
+      npm install
+    command: |
+      echo "workshop-intro-to-graphql gitpod ready - LET'S DO THIS!"
+      gp open README.md
+ports:
+  - port: 8888
+    onOpen: open-preview
+  - port: 3000
+    onOpen: ignore      
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: false
+    addCheck: true
+    addComment: false
+    addBadge: true
+    addLabel: false
