@@ -1,4 +1,28 @@
+# nodejs
 node_modules
 .env
+
+# eclipse conf file
+.settings
+.classpath
+.project
+.cache
+
+# idea conf files
+.idea
+*.ipr
+*.iws
+*.iml
+
+# building
+target
+build
+tmp
+dist
+
+# misc
 .DS_Store
-.DS_Store
+
+.factorypath
+.sts4-cache
+*.log
