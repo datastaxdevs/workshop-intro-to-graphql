@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-//import Shows from './Shows';
-import ShowsByName from './ShowsByName';
-//import Genres from './Genres';
+import Shows from './Shows';
+//import ShowsByName from './ShowsByName';
+import Genres from './Genres';
 
 function App() {
   return (
@@ -20,7 +20,8 @@ function App() {
         >
           Learn React
         </a>
-        <ShowsByName />
+        <Shows />
+        <Genres />
       </header>
     </div>
   );

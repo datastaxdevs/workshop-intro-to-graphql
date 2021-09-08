@@ -9,15 +9,15 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 
-/*const client = new ApolloClient({
+const client = new ApolloClient({
   uri: 'http://localhost:8080/graphql',
   cache: new InMemoryCache(),
   fetchOptions: {
     mode: 'no-cors',
   },
-});*/
+});
 
-const client = new ApolloClient({
+/*const client = new ApolloClient({
   uri: 'https://1960a990-f68b-46bd-b6a4-4897398fcbd7-southcentralus.apps.astra.datastax.com/api/graphql/netflix_keyspace',
   cache: new InMemoryCache(),
   fetchOptions: {
@@ -27,7 +27,7 @@ const client = new ApolloClient({
     "Content-Type": "application/json",
     "X-Cassandra-Token": "AstraCS:BjbroculuiBIikPmnpZiWduq:cce2745e2f6e78f662d2d76f84bbfe6cd4b1a9f28a7d01091f4672eb1ec2dde6"
   },
-});
+});*/
 
 /*const client = new ApolloClient({
   uri: 'https://48p1r2roz4.sse.codesandbox.io',
