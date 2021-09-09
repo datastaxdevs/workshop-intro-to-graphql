@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react" 
   
-function Genres() {
+function ReferenceList() {
   const [genres, setGenres] = useState(null)
 
   const fetchData = async () => {
-    const response = await fetch("/.netlify/functions/getGenresBackend", {
+    const response = await fetch("/.netlify/functions/getGenresAstra", {
       method: "POST",
     })
     const responseBody = await response.json()
-    setGenres(responseBody.data.genres)
+    setGenres(responseBody.data.reference_list.values)
   }
 
   useEffect(() => {
@@ -32,4 +32,4 @@ function Genres() {
   }
 }
 
-export default Genres;
+export default ReferenceList;

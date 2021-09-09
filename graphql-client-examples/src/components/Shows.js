@@ -1,39 +1,35 @@
-import {
-    useQuery,
-    gql
-  } from "@apollo/client";
+import { useState, useEffect } from "react" 
    
-  const SHOWS = gql`
-    query {
-    shows {
-        title,
-        releaseYear                            
-      }
-    }
-  `;
-  
-  function Shows() {
-  
-    const { loading, error, data } = useQuery(SHOWS);
-  
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-  
-    if (data.shows !== null) {
-        return data.shows.map(({ title, releaseYear }) => (
-            <div key={title}>
-                <p>
-                {title}: {releaseYear}
-                </p>
-            </div>
-        ));
-    } else {
-        return (
-            <div>
-                <p>NO DATA</p>
-            </div>
-        )
-    }
+function Shows() {
+  const [shows, setShows] = useState(null)
+
+  const fetchData = async () => {
+    const response = await fetch("/.netlify/functions/getShowsBackend", {
+      method: "POST",
+    })
+    const responseBody = await response.json()
+    setShows(responseBody.data.shows)
   }
 
-  export default Shows;
+  useEffect(() => {
+    fetchData()
+  }, [])
+    
+  if (shows !== null) {
+    return shows.map(({ title, releaseYear }) => (
+        <div key={title}>
+            <p>
+            {title}: {releaseYear}
+            </p>
+        </div>
+    ));
+  } else {
+      return (
+          <div>
+              <p>NO DATA</p>
+          </div>
+      )
+  }
+}
+
+export default Shows;

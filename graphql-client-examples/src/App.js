@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-//import Shows from './components/Shows';
-//import Genres from './components/Genres';
+import Shows from './components/Shows';
+import Genres from './components/Genres';
 import ShowsByName from './components/ShowsByName';
+import ReferenceList from './components/ReferenceList';
 
 function App() {
   return (
@@ -20,7 +21,14 @@ function App() {
         >
           Learn React
         </a>
+        <h1>Shows</h1>
+        <Shows />
+        <h1>Genres</h1>
+        <Genres />
+        <h1>ShowsByName</h1>
         <ShowsByName />
+        <h1>ReferenceList</h1>
+        <ReferenceList />
       </header>
     </div>
   );
