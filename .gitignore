@@ -1,6 +1,7 @@
 # nodejs
 node_modules
 .env
+package-lock.json
 
 # eclipse conf file
 .settings
