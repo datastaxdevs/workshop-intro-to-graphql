@@ -12,6 +12,7 @@ tasks:
       npm install
     command: |
       echo "workshop-intro-to-graphql gitpod ready - LET'S DO THIS!"
+      gp preview $(gp url 8080)/graphiql
   - name: graphQL-Backend
     openMode: split-right
     before: |
@@ -24,6 +25,7 @@ ports:
   - port: 8080
     visibility: public
     onOpen: open-browser
+    previewURI: /graphiql
   - port: 3000
     onOpen: ignore      
 github:
