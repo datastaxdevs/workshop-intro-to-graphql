@@ -29,8 +29,11 @@ public class DemoApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                logger.info("GraphQL endpoint is: " + graphQLEndpoint);
-                registry.addMapping("/graphql").allowedOrigins(graphQLEndpoint);
+                final String[] endpoint = graphQLEndpoint.split("/graphql");
+                final String origin  = endpoint[0];
+
+                logger.info("GraphQL endpoint is: " + origin);
+                registry.addMapping("/graphql").allowedOrigins("" + origin + "");
             }
         };
     }
