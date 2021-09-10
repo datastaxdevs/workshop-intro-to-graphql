@@ -18,11 +18,13 @@ tasks:
       cd graphql-backend-examples
       mvn clean install
       mvn spring-boot:run
+    command: gp preview $(gp url 8080)/graphiql
 ports:
   - port: 8888
     onOpen: open-preview
   - port: 8080
     visibility: public
+    onOpen: open-preview
   - port: 3000
     onOpen: ignore      
 github:
