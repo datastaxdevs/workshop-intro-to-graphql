@@ -1,16 +1,26 @@
 tasks:
-  - name: intro-to-graphql
+  - name: graphQL-Client
     before: |
       cd graphql-client-examples
       nvm install node
       npm install -g npm@latest
+      npm install astra-setup
+      npm install -g netlify-cli
       npm install
     command: |
       echo "workshop-intro-to-graphql gitpod ready - LET'S DO THIS!"
       gp open README.md
+  - name: graphQL-Backend
+    openMode: split-right
+    before: |
+      cd graphql-backend-examples
+      mvn clean install
+      mvn spring-boot:run
 ports:
   - port: 8888
     onOpen: open-preview
+  - port: 8080
+    visibility: public
   - port: 3000
     onOpen: ignore      
 github:
