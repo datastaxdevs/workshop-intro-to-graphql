@@ -25,7 +25,6 @@ ports:
   - port: 8080
     visibility: public
     onOpen: open-browser
-    previewURI: /graphiql
   - port: 3000
     onOpen: ignore      
 github:
