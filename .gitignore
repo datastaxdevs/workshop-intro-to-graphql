@@ -3,6 +3,9 @@ node_modules
 .env
 package-lock.json
 
+# java
+application.properties
+
 # eclipse conf file
 .settings
 .classpath
