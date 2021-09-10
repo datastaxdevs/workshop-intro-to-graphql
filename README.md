@@ -7,7 +7,11 @@
 
 *50 minutes, Beginner/Intermediate, [Start Building](#1-login-or-register-to-astradb-and-create-database)*
 
-Both a simple **graphQL** enabled **ReactJS** app built using [**create-react-app**](https://create-react-app.dev/) AND a simple **Java** backend **graphQL** service built with [**Spring Intializer**](https://start.spring.io/) and using [**The Netflix DGS framework**](https://netflix.github.io/dgs/getting-started/) PLUS **Astra DB** hooked up and ready to rock! :rockon: 
+Both a simple **graphQL** enabled **ReactJS** app built using [**create-react-app**](https://create-react-app.dev/) AND a simple **Java** backend **graphQL** service built with [**Spring Intializer**](https://start.spring.io/) and using [**The Netflix DGS framework**](https://netflix.github.io/dgs/getting-started/) PLUS **Astra DB** hooked up and ready to rock! :heart_eyes_cat:
+
+This is a companion to our [Netflix Clone using Astra DB and GraphQL](https://github.com/datastaxdevs/appdev-week3-graphql) workshop and is essentially a "prologue" to that content. Once complete, feel free to to go deploy a Netflix clone using what you learned here.
+
+Finally, this content uses **React/JS** concepts. If you are not familiar with those or need a refresher, [take a look HERE](https://github.com/datastaxdevs/react-basics) to get up to date.
 
 The materials have been built by the Datastax developer advocates team.
 
@@ -142,7 +146,7 @@ This will startup your demo environment. Be patient, it will take a couple minut
 ## 4. Experiment with GraphiQL
 It just so happens that [The Netflix DGS framework](https://netflix.github.io/dgs/getting-started/) comes with GraphiQL already integrated and ready for use. This is a wonderful tool you can use to explore graphQL queries and mutations. Let's experiement with this now!
 
-#### Here's the schema definied in our java backend per `graphql-backend-examples/src/main/resources/schema/schema.graphqls/schema.graphqls`
+#### Here's the schema defined in our java backend per `graphql-backend-examples/src/main/resources/schema/schema.graphqls/schema.graphqls`
 
 ```GraphQL
 type Query {
