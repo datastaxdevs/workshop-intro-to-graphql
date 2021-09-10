@@ -1,6 +1,7 @@
 tasks:
   - name: cors-host-config
     before: bash hostURL.sh
+    command: gp open README.md
   - name: graphQL-Client
     before: |
       cd graphql-client-examples
@@ -11,20 +12,18 @@ tasks:
       npm install
     command: |
       echo "workshop-intro-to-graphql gitpod ready - LET'S DO THIS!"
-      gp open README.md
   - name: graphQL-Backend
     openMode: split-right
     before: |
       cd graphql-backend-examples
       mvn clean install
       mvn spring-boot:run
-    command: gp preview $(gp url 8080)/graphiql
 ports:
   - port: 8888
     onOpen: open-preview
   - port: 8080
     visibility: public
-    onOpen: open-preview
+    onOpen: open-browser
   - port: 3000
     onOpen: ignore      
 github:
