@@ -1,4 +1,6 @@
 tasks:
+  - name: cors-host-config
+    before: bash hostURL.sh
   - name: graphQL-Client
     before: |
       cd graphql-client-examples
