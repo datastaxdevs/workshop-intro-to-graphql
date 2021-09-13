@@ -8,7 +8,7 @@ function ReferenceList() {
       method: "POST",
     })
     const responseBody = await response.json()
-    setGenres(responseBody.data.reference_list.values)
+    setGenres(responseBody)
   }
 
   useEffect(() => {
@@ -16,19 +16,36 @@ function ReferenceList() {
   }, [])
     
   if (genres !== null) {
-      return genres.map(({ value }) => (
+    if (genres.data) {
+      if (genres.data.reference_list.values.length !== 0) {
+        return genres.data.reference_list.values.map(({ value }) => (
           <div key={value}>
-              <p>
+            <p>
               {value}
-              </p>
+            </p>
           </div>
-      ));
-  } else {
-      return (
+        ));
+      } else {
+        return (
           <div>
               <p>NO DATA</p>
           </div>
+        )
+      }
+    } else if (genres.errors) {
+      console.log("reference_list ERROR IS: ", genres.errors)
+      return (
+        <div>
+            <p>ERROR</p>
+        </div>
       )
+    }
+  } else {
+    return (
+      <div>
+          <p>NO DATA</p>
+      </div>
+    )
   }
 }
 
