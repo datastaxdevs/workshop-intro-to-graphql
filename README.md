@@ -59,7 +59,7 @@ It doesn't matter if you join our workshop live or you prefer to do at your own 
 
 ## Homework
 
-<img src="tutorial/images/netflix-badge.png?raw=true" width="200" align="right" />
+<img src="tutorial/images/graphql-badge.png?raw=true" width="200" align="right" />
 
 Don't forget to complete your upgrade and get your verified skill badge! Finish and submit your homework!
 
