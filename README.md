@@ -127,7 +127,7 @@ The status will change to `Active` when the database is ready, this will only ta
 
 **👁️ Expected output**
 - <details><summary>Show me!</summary>
-    <img src="img/astra-create-token.gif?raw=true" />
+    <img src="https://github.com/datastaxdevs/workshop-spring-stargate/raw/main/images/tutorials/astra-create-token.gif?raw=true" />
 </details>
 
 [🏠 Back to Table of Contents](#table-of-contents)
