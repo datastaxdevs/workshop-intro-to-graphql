@@ -22,6 +22,9 @@ public class DemoApplication {
 
 	/*
     * No cors origin global setting.
+    * This is needed to allow clients from a different origin
+    * other than where this server is running to connect without
+    * being denied via a CORS error
     */
     @Bean
     public WebMvcConfigurer corsConfigurer() {
