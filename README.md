@@ -161,7 +161,10 @@ type Genre {
 }
 ```
 
+Something to point out here is there is no database just yet. We are powering the graphQL schema via the back-end Java application and the graphQL data is completely hardcoded. Take a look at both **`ShowsDatafetcher.java`** and **`GenresDatafetcher.java`** located in **`graphql-backend-examples/src/main/java/com/example/demo`** to find the simple implementations using DGS annotations `@DgsComponent` and `@DgsQuery`.
+
 #### Now, let's try out some graphQL queries
+Plug these into the GraphiQL IDE that launched into a new tab from GitPod.
 
 ```GraphQL
 query justTitle {
@@ -182,11 +185,9 @@ query withReleaseYear {
 
 ```GraphQL
 query getOneShow {
-  show_by_name (value: {title: "Ozark"}) {
-    values {
+  shows (titleFilter: "Ozark") {
       title
       releaseYear
-    }
   }
 }
 ```
@@ -202,6 +203,9 @@ query ShowsAndGenres {
   }
 }
 ```
+
+![Screen Shot 2021-09-14 at 10 56 10 AM](https://user-images.githubusercontent.com/23346205/133281572-9f42d927-639b-4993-aefe-18c700a1575a.png)
+
 
 ## 5. Start up React
 Ok, so we've played a bit with some graphQL queries on the backend and looked at how a basic schema works, but how do we hook this into our React JS app?

@@ -21,13 +21,13 @@ function App() {
         >
           Learn React
         </a>
-        <h1>Shows</h1>
+        <h1>Shows(Local)</h1>
         <Shows />
-        <h1>Genres</h1>
+        <h1>Genres(Local)</h1>
         <Genres />
-        <h1>ShowsByName</h1>
+        <h1>ShowsByName(Astra DB)</h1>
         <ShowsByName />
-        <h1>ReferenceList</h1>
+        <h1>ReferenceList(Astra DB)</h1>
         <ReferenceList />
       </header>
     </div>
