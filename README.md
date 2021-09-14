@@ -239,43 +239,57 @@ const query = `
   All of the javascript wrapped around these is simply there to call the **graphQL** endpoint with the given query and pass the responseBody back to the calling function.
 
   #### Now for the cool part
-  Take a look at **`Shows.js`** and **`Genres.js`** located in **`graphql-client-examples/src/components/Shows.js`**. In both cases they use **React** state, `shows` and `genres` respectively
+  Take a look at **`Shows.js`** and **`Genres.js`** located in **`graphql-client-examples/src/components/Shows.js`**. In both cases they use **React** state, `gqlResult`
   ```javascript
-  const [shows, setShows] = useState(null)
+  const [gqlResult, setGqlResult] = useState(null)
   ```
 
-  ```javascript
-  const [genres, setGenres] = useState(null)
-  ```
-
-to receive the responseBody from from our **graphQL** queries, set the **React** state, and inject the values dyanmically into the DOM.
+to receive the responseBody from from our **graphQL** queries, set the **React** state, and inject the values dyanmically into the DOM. Check out the following javascript snippet from **`Shows.js`**.
+```javascript
+// Asynchronously fetch any "shows" graphQL data from the Java backend
+// using the getShowsAstra serverless function to call out to the
+// Netflix DGS Java graphQL endpoint
+const response = await fetch("/.netlify/functions/getShowsBackend", {
+    method: "POST",
+})
+const responseBody = await response.json()
+setGqlResult(responseBody) // on reponse set our graphQL result state
+```
 
 Notice how the fields (title, releaseYear) match our **graphQL** `Shows` schema exactly.
 ```javascript
-return shows.map(({ title, releaseYear }) => (
-        <div key={title}>
-            <p>
-            {title}: {releaseYear}
-            </p>
-        </div>
-    ));
+// Finally, if all other checks pass get the data
+// from the payload via gqlResult state and inject it into the DOM
+// Notice how the payload example below and the fields "title" and "releaseYear" match exactly
+// {"data":{"shows":[{"title":"Stranger Things","releaseYear":2016},{"title":"Ozark","releaseYear":2017}...
+return gqlResult.data.shows.map(({ title, releaseYear }) => (
+    <div key={title}>
+        <p>
+        {title}: {releaseYear}
+        </p>
+    </div>
+  ));
 ```
 
 Notice how the field (value) matches our **graphQL** `Genres` schema exactly.
 ```javascript
-return genres.map(({ value }) => (
-          <div key={value}>
-              <p>
-              {value}
-              </p>
-          </div>
-      ));
+// Finally, if all other checks pass get the data
+// from the payload via gqlResult state and inject it into the DOM
+// Notice how the payload example below and the fields "title" and "releaseYear" match exactly
+// {"data":{"genres":[{"value":"Action"},{"value":"Anime"}...
+return gqlResult.data.genres.map(({ value }) => (
+    <div key={value}>
+        <p>
+        {value}
+        </p>
+    </div>
+  ));
 ```
 
 ## 6. Hook up the data layer with Astra DB
 Ok, let's take this a step further and hook our app up to a data layer. As this point you should have already created your Astra DB database. Follow the instructions below to launch the **GraphQL Playground** provided in **Astra**
 
-✅  **Step 6a:** Open **GraphQL Playground** by 
+#### ✅  Step 6a: Open GraphQL Playground by 
 1. Click on your active database
 2. Click `Connect` TAB
 3. Click `GRAPHQL API`
@@ -286,11 +300,11 @@ Ok, let's take this a step further and hook our app up to a data layer. As this 
 
 > *Note that values in the picture do no reflect the database name `netflix_workshop_db`, reason is we do not reproduce every picture each time*
 
-✅  **Step 6b:** In GraphQL Playground, **Populate HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below
+#### ✅  Step 6b: In GraphQL Playground, **Populate HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below
 
 ![image](tutorial/images/graphql-playground.png?raw=true)
 
-✅  **Step 6c:** In GraphQL Playground, create a table with the following mutation, making sure to replace `netflix_keyspace` if you used a different name:
+#### ✅  Step 6c: In GraphQL Playground, create a table with the following mutation, making sure to replace `netflix_keyspace` if you used a different name:
 
 - Copy the following mutation on the left panel
 ```yaml
@@ -316,13 +330,13 @@ mutation {
 
 ## 7. Insert data in the Table with GraphQL
 
-✅  **Step 7a:** In graphQL playground, change tab to now use `graphql`. Edit the end of the URl to change from `system` to the name of your keyspace: `netflix_keyspace`
+#### ✅  Step 7a: In graphQL playground, change tab to now use `graphql`. Edit the end of the URl to change from `system` to the name of your keyspace: `netflix_keyspace`
 
-✅  **Step 7b:** Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below (again !! yes this is not the same tab)
+#### ✅  Step 7b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below (again !! yes this is not the same tab)
 
 ![image](tutorial/images/graphql-playground-2.png?raw=true)
 
-✅  **Step 7c:** In GraphQL Playground,populate the `reference_list` table with the following values
+#### ✅  Step 7c: In GraphQL Playground,populate the `reference_list` table with the following values
 
 - Copy the following mutation on the left panel
 
@@ -382,7 +396,7 @@ mutation insertGenres {
 
 ## 8. Retrieving list of values
 
-✅  **Step 5a:** In GraphQL Playground, not changing tab (yeah) list values from the table with the following query.
+#### ✅  Step 8a: In GraphQL Playground, not changing tab (yeah) list values from the table with the following query.
 
 ```yaml
 query getAllGenre {
@@ -400,3 +414,40 @@ query getAllGenre {
 [🏠 Back to Table of Contents](#table-of-contents)
 
 ## 9. Hook the database up to our React/JS app
+So, you just created a table, inserted (mutated) some rows into the table, and then retrieved all of the genres with the "getAllGenre" query using the GraphQL Playground provided as part of Astra DB. Now, let's hook our client up to our Astra DB graphQL endpiont and render the results to our website with React.
+
+#### ✅ Step 9a: Configure database credentials
+In your **`GitPod`** IDE navigate to the **`workshop-intro-to-graphql/graphql-client-examples`** terminal on the bottom right *(it should already be open for you)*.
+
+#### ✅ Execute the following command in your terminal to stop the React app
+*You will need to hold the control button and the letter C at the same time*
+```shell
+CTRL-C 
+```
+
+#### ✅ Now execute the following command to configure the database
+ Note that this does require Node 15 and NPM 7 to work.  You can install a node version manager like `nvm` or `n` to use multiple versions on your system. **If you are using GitPod this should simply work since we pre-installed all of the dependcies for you.**
+
+```shell
+npm exec astra-setup netflix_workshop_db netflix_keyspace
+```
+
+You will be asked to: **Please paste the Database Admin Token here** so copy over the Token you saved earlier, and hit enter. It will start with AstraCS:cvdPRONUrUUT:...
+
+![Screen Shot 2021-09-13 at 9 42 46 PM](https://user-images.githubusercontent.com/23346205/133180758-ff2a9cc9-73a2-4602-8e41-d78fada9932b.png)
+
+This will add a set of envrionment variables for database authentication to your `.env` file at the root of **`workshop-intro-to-graphql/graphql-client-examples`**. It should look something like this.
+
+![Screen Shot 2021-09-13 at 9 45 41 PM](https://user-images.githubusercontent.com/23346205/133181009-928f4172-a687-43eb-b9ee-8c3d2e7483dd.png)
+
+#### ✅ Start your React app back up with the following command
+```shell
+netlify dev
+```
+
+#### ✅ Step 9b: Verify data load
+At this point your app should be running with a bunch of data displayed in the **`Shows`**, **`Genres,`** and **`ReferenceList`** sections, but notice the **`ShowsByName`** section displays **"Error :("**
+
+![Screen Shot 2021-09-13 at 10 00 26 PM](https://user-images.githubusercontent.com/23346205/133182276-3420d435-8f72-4e0c-ae5f-c7f0834a357c.png)
+
+#### ✅ Can you figure out what's going on here?
