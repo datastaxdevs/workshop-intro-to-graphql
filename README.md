@@ -67,7 +67,7 @@ Don't forget to complete your upgrade and get your verified skill badge! Finish 
 2. Insert a movie of your choice in the database.
 3. Make screenshots alongside the steps and show us your deployed production Netflix clone up in Netlify.
 4. (Optional extra credit) Watch the 45 minute Ali Spittel video, *A Beginner's Guide to GraphQL* [HERE](https://www.youtube.com/watch?v=c2fJ7T0N1Sk).
-5. Submit your homework [here](https://github.com/datastaxdevs/appdev-week3-graphql/issues/new?assignees=HadesArchitect%2C+SonicDMG%2C+RyanWelford&labels=homework%2C+wait+for+review&template=homework-assignment.md&title=%5BHW%5D+%3CNAME%3E)
+5. Submit your homework [here](https://github.com/datastaxdevs/workshop-intro-to-graphql/issues/new?assignees=HadesArchitect%2C+SonicDMG%2C+RyanWelford&labels=homework%2C+wait+for+review&template=homework-assignment.md&title=%5BHW%5D+%3CNAME%3E)
 
 That's it, you are done! Expect an email within about a week!
   
