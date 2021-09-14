@@ -181,6 +181,17 @@ query withReleaseYear {
 ```
 
 ```GraphQL
+query getOneShow {
+  show_by_name (value: {title: "Ozark"}) {
+    values {
+      title
+      releaseYear
+    }
+  }
+}
+```
+
+```GraphQL
 query ShowsAndGenres {
   shows {
     title
@@ -307,7 +318,7 @@ Ok, let's take this a step further and hook our app up to a data layer. As this 
 #### ✅  Step 6c: In GraphQL Playground, create a table with the following mutation, making sure to replace `netflix_keyspace` if you used a different name:
 
 - Copy the following mutation on the left panel
-```yaml
+```GraphQL
 mutation {
   reference_list: createTable(
     keyspaceName:"netflix_keyspace",
@@ -340,7 +351,7 @@ mutation {
 
 - Copy the following mutation on the left panel
 
-```yaml
+```GraphQL
 mutation insertGenres {
   action: insertreference_list(value: {label:"genre", value:"Action"}) {
     value{value}
@@ -474,7 +485,7 @@ exports.handler = async function (event) {
 
 #### ✅  Test this query in the GraphQL Playground **`graphQL`** tab
 Copy this into the playground and press the _"play"_ button to execute the query
-```graphql
+```GraphQL
 query getAllShows {
       show_by_name {
         values {
@@ -496,7 +507,7 @@ Notice what happened here. We have a validation error because there is no schema
 Ok, so let's fix up the schema issue to resolve the issue.
 
 #### ✅ Execute the following mutation in the **`graph-schema`** tab of the GraphQL Playground
-```graphql
+```GraphQL
 mutation CreateShowsTable {
   createTable(
     keyspaceName: "netflix_keyspace"
@@ -520,7 +531,7 @@ Once executed you should see a result like this
 
 #### ✅ Add some data
 Now, go back to the **`graphql`** tab of the GraphQL Playground and add the following mutation
-```graphql
+```GraphQL
 mutation insertShows {
   stranger: insertshow_by_name (
     value: {
