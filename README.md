@@ -13,7 +13,7 @@ This is a companion to our [Netflix Clone using Astra DB and GraphQL](https://gi
 
 Finally, this content uses **React/JS** concepts. If you are not familiar with those or need a refresher, [take a look HERE](https://github.com/datastaxdevs/react-basics) to get up to date.
 
-The materials have been built by the Datastax developer advocates team.
+The materials have been built by the DataStax developer advocates team.
 
 <!--- ENDEXCLUDE --->
 
