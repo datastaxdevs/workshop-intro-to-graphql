@@ -316,6 +316,7 @@ Ok, let's take this a step further and hook our app up to a data layer. As this 
 > *Note that values in the picture do no reflect the database name `netflix_workshop_db`, reason is we do not reproduce every picture each time*
 
 #### ✅  Step 6b: In GraphQL Playground, **Populate HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below
+✅ Ensure you have the **`graphql-schema`** tab selected for this step
 
 ![image](tutorial/images/graphql-playground.png?raw=true)
 
@@ -432,7 +433,7 @@ query getAllGenre {
 So, you just created a table, inserted (mutated) some rows into the table, and then retrieved all of the genres with the "getAllGenre" query using the GraphQL Playground provided as part of Astra DB. Now, let's hook our client up to our Astra DB graphQL endpiont and render the results to our website with React.
 
 #### ✅ Step 9a: Configure database credentials
-In your **`GitPod`** IDE navigate to the **`workshop-intro-to-graphql/graphql-client-examples`** terminal on the bottom right *(it should already be open for you)*.
+In your **`GitPod`** IDE navigate to the **`workshop-intro-to-graphql/graphql-client-examples`** terminal on the bottom right *(it should already be open for you)*. **This is running your nodejs/React app.**
 
 #### ✅ Execute the following command in your terminal to stop the React app
 *You will need to hold the control button and the letter C at the same time*
@@ -488,7 +489,8 @@ exports.handler = async function (event) {
 ```
 
 #### ✅  Test this query in the GraphQL Playground **`graphQL`** tab
-Copy this into the playground and press the _"play"_ button to execute the query
+Copy this into the playground and press the _"play"_ button to execute the query. **NOTE, you can simply append the query to the end of the list and then choose the query you wish to execute when you hit the "play" button.**
+
 ```GraphQL
 query getAllShows {
       show_by_name {
@@ -507,8 +509,8 @@ Notice what happened here. We have a validation error because there is no schema
 
 ![Screen Shot 2021-09-13 at 10 25 31 PM](https://user-images.githubusercontent.com/23346205/133184395-5436558a-bb80-4b45-a852-193cfbef2ba8.png)
 
-#### ✅ Step 9c: Create the **`ShowsByName`** schema and fix the app
-Ok, so let's fix up the schema issue to resolve the issue.
+#### ✅ Step 9c: Create the **`ShowsByName`** table with a graphQL mutation to fix the app
+Ok, so let's fix up the schema issue to resolve the error.
 
 #### ✅ Execute the following mutation in the **`graph-schema`** tab of the GraphQL Playground
 ```GraphQL
