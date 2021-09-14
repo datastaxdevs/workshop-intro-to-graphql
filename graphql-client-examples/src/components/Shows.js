@@ -14,7 +14,7 @@ function Shows() {
       method: "POST",
     })
     const responseBody = await response.json()
-    setGqlResult(responseBody) // on reponse set our graphQL result state
+    setGqlResult(responseBody) // on response set our graphQL result state
   }
 
   useEffect(() => {
