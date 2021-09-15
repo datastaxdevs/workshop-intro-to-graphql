@@ -578,3 +578,32 @@ mutation insertShows {
 Notice this no longer displays **"Error :("**, but now correctly displays the data you just inserted (mutated). It might be fun to add some of your own data to this schema and refresh your page.
 
 ![Screen Shot 2021-09-13 at 10 41 03 PM](https://user-images.githubusercontent.com/23346205/133186039-9c5a06a1-6ac9-47c5-a984-c8809683636f.png)
+
+#### Feel free to experiment with a couple more graphQL queries now that you have some data in the table
+
+Notice in this case we are passing a "title" parameter "Ozark" to only return the show values that match that title.
+
+```GraphQL
+query getOneShow {
+  show_by_name (value: {title: "Ozark"}) {
+    values {
+      title
+      releaseYear
+    }
+  }
+}
+```
+
+```GraphQL
+query getAllShows {
+  show_by_name {
+    values {
+      title
+      releaseYear
+    }
+  }
+}
+```
+
+### That's it, you did it! Nice job!
+We hope this workshop gave you enough information on GraphQL to be dangerous and start you on a journey to using GraphQL in your own apps. Also, don't forget to do the [HOMEWORK](#homework)
