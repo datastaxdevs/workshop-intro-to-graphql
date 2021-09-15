@@ -242,9 +242,9 @@ const query = `
       }
     }
   `
-  ```
+```
 
-  ```javascript
+```javascript
   const query = `
     query getAllGenres {
       genres {
@@ -252,17 +252,20 @@ const query = `
       }
     }
   `
-  ```
+```
 
-  All of the javascript wrapped around these is simply there to call the **graphQL** endpoint with the given query and pass the responseBody back to the calling function.
+All of the javascript wrapped around these is simply there to call the **graphQL** endpoint with the given query and pass the responseBody back to the calling function.
 
-  #### Now for the cool part
-  Take a look at **`Shows.js`** and **`Genres.js`** located in **`graphql-client-examples/src/components/Shows.js`**. In both cases they use **React** state, `gqlResult`
-  ```javascript
+#### Now for the cool part ####
+
+Take a look at **`Shows.js`** and **`Genres.js`** located in **`graphql-client-examples/src/components/Shows.js`**. In both cases they use **React** state, `gqlResult`
+
+```javascript
   const [gqlResult, setGqlResult] = useState(null)
-  ```
+```
 
 to receive the responseBody from from our **graphQL** queries, set the **React** state, and inject the values dyanmically into the DOM. Check out the following javascript snippet from **`Shows.js`**.
+
 ```javascript
 // Asynchronously fetch any "shows" graphQL data from the Java backend
 // using the getShowsAstra serverless function to call out to the
@@ -275,6 +278,7 @@ setGqlResult(responseBody) // on reponse set our graphQL result state
 ```
 
 Notice how the fields (title, releaseYear) match our **graphQL** `Shows` schema exactly.
+
 ```javascript
 // Finally, if all other checks pass get the data
 // from the payload via gqlResult state and inject it into the DOM
@@ -290,6 +294,7 @@ return gqlResult.data.shows.map(({ title, releaseYear }) => (
 ```
 
 Notice how the field (value) matches our **graphQL** `Genres` schema exactly.
+
 ```javascript
 // Finally, if all other checks pass get the data
 // from the payload via gqlResult state and inject it into the DOM
@@ -326,6 +331,7 @@ Ok, let's take this a step further and hook our app up to a data layer. As this 
 #### ✅  Step 6c: In GraphQL Playground, create a table with the following mutation, making sure to replace `netflix_keyspace` if you used a different name:
 
 - Copy the following mutation on the left panel
+
 ```GraphQL
 mutation {
   reference_list: createTable(
