@@ -82,7 +82,7 @@ That's it, you are done! Expect an email within about a week!
 
 [GraphiQL](https://www.gatsbyjs.com/docs/how-to/querying-data/running-queries-with-graphiql/) - GraphQL IDE included with The Netflix DGS Framework
 
-[Apollo client](https://www.apollographql.com/docs/react/) - Awesome GraphQL client for React/JS
+[Apollo client](https://www.apollographql.com/docs/react/) - Awesome GraphQL client for React/JS (not used here, but really solid, Netflix uses this)
 
 [Top 7 GraphQL IDEs](https://hasura.io/blog/top-7-graphql-ides-you-should-know-about-in-2021/) - A nice collection of cool GraphQL IDEs to use
 
