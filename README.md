@@ -146,7 +146,7 @@ This will startup your demo environment. Be patient, it will take a couple minut
 
 You may be asked if it's OK to launch a new tab (for the GraphiQL IDE that will be used subsequently. Click on Open to make sure the new tab opens as shown below.
 
-![image](./tutorial/images/db-pending.png?raw=true)
+![image](./tutorial/images/NewTabOpen.png?raw=true)
 
 ## 4. Experiment with GraphiQL
 It just so happens that [The Netflix DGS framework](https://netflix.github.io/dgs/getting-started/) comes with GraphiQL already integrated and ready for use. This is a wonderful tool you can use to explore graphQL queries and mutations. Let's experiement with this now!
