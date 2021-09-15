@@ -74,17 +74,21 @@ That's it, you are done! Expect an email within about a week!
 
 
 ### Extra resources
-[graphql.org](https://graphql.org/)
+[graphql.org](https://graphql.org/) - The first place to learn about GraphQL
 
-[The Netflix DGS framework Tutorial](https://netflix.github.io/dgs/getting-started/)
+[The Netflix DGS framework Tutorial](https://netflix.github.io/dgs/getting-started/) - Java/Spring GraphQL backend (used to generate this code)
 
-[GraphiQL](https://www.gatsbyjs.com/docs/how-to/querying-data/running-queries-with-graphiql/)
+[Spring Initializr](https://start.spring.io/) - Used in the ^above tutorial to generate the Java/Spring backend starter
 
-[Top 7 GraphQL IDEs](https://hasura.io/blog/top-7-graphql-ides-you-should-know-about-in-2021/)
+[GraphiQL](https://www.gatsbyjs.com/docs/how-to/querying-data/running-queries-with-graphiql/) - GraphQL IDE included with The Netflix DGS Framework
 
-[create-react-app tutorial](https://create-react-app.dev/)
+[Apollo client](https://www.apollographql.com/docs/react/) - Awesome GraphQL client for React/JS
 
-[Spring Initializr](https://start.spring.io/)
+[Top 7 GraphQL IDEs](https://hasura.io/blog/top-7-graphql-ides-you-should-know-about-in-2021/) - A nice collection of cool GraphQL IDEs to use
+
+[create-react-app tutorial](https://create-react-app.dev/) - Create a React app from scratch (used to generate this code)
+
+[A Beginner's Guide to GraphQL](https://www.youtube.com/watch?v=c2fJ7T0N1Sk) - Ali Spittel's really awesome GraphQL starter video
 
 # Part 1 - DB Setup & Data Ingest
 
