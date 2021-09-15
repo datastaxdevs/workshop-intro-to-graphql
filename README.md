@@ -63,11 +63,10 @@ It doesn't matter if you join our workshop live or you prefer to do at your own 
 
 Don't forget to complete your upgrade and get your verified skill badge! Finish and submit your homework!
 
-1. Complete the practice steps from this repository as described below.
-2. Insert a movie of your choice in the database.
-3. Make screenshots alongside the steps and show us your deployed production Netflix clone up in Netlify.
-4. (Optional extra credit) Watch the 45 minute Ali Spittel video, *A Beginner's Guide to GraphQL* [HERE](https://www.youtube.com/watch?v=c2fJ7T0N1Sk).
-5. Submit your homework [here](https://github.com/datastaxdevs/workshop-intro-to-graphql/issues/new?assignees=HadesArchitect%2C+SonicDMG%2C+RyanWelford&labels=homework%2C+wait+for+review&template=homework-assignment.md&title=%5BHW%5D+%3CNAME%3E)
+1. Complete the practice steps from this repository as described below through step 9
+2. Insert (mutate) a show or genre of your choice in the database.
+3. Make a single screenshot of the React app with all of the working Astra DB sections
+4. Submit your homework [here](https://github.com/datastaxdevs/workshop-intro-to-graphql/issues/new?assignees=HadesArchitect%2C+SonicDMG%2C+RyanWelford&labels=homework%2C+wait+for+review&template=homework-assignment.md&title=%5BHW%5D+%3CNAME%3E)
 
 That's it, you are done! Expect an email within about a week!
   
