@@ -8,7 +8,7 @@ function Shows() {
   const fetchData = async () => {
 
     // Asynchronously fetch any "shows" graphQL data from the Java backend
-    // using the getShowsAstra serverless function to call out to the
+    // using the getShowsBackend serverless function to call out to the
     // Netflix DGS Java graphQL endpoint
     const response = await fetch("/.netlify/functions/getShowsBackend", {
       method: "POST",

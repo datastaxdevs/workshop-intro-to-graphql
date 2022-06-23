@@ -26,7 +26,7 @@ The materials have been built by the DataStax developer advocates team.
 * How to build GraphQL APIs for mobile and web applications
 * Setting up your Astra DB to store application data via GraphQL
 
-## ℹ️ Frequently asked questions ℹ️ 
+## ℹ️ Frequently asked questions ℹ️
 
 - *Can I run the workshop on my computer?*
 
@@ -99,7 +99,7 @@ That's it, you are done! Expect an email within about a week!
 
 _Make sure to chose a password with minimum 8 characters, containing upper and lowercase letters, at least one number and special character_
 
-<a href="https://astra.dev/10-6"><img src="tutorial/images/create_astra_db.png?raw=true" /></a>
+<a href="https://astra.dev/6-29"><img src="tutorial/images/create_astra_db.png?raw=true" /></a>
 - <details><summary>Show me!</summary>
     <img src="https://github.com/datastaxdevs/workshop-spring-stargate/raw/main/images/tutorials/astra-create-db.gif?raw=true" />
 </details>
@@ -107,8 +107,8 @@ _Make sure to chose a password with minimum 8 characters, containing upper and l
 **Use the following values when creating the database**
 |Field| Value|
 |---|---|
-|**database name**| `netflix_workshop_db` |
-|**keyspace**| `netflix_keyspace` |
+|**database name**| `workshops` |
+|**keyspace**| `intrographql` |
 |**Cloud Provider**| *Use the one you like, click a cloud provider logo,  pick an Area in the list and finally pick a region.* |
 
 _You can technically use whatever you want and update the code to reflect the keyspace. This is really to get you on a happy path for the first run._
@@ -151,7 +151,7 @@ You may be asked if it's OK to launch a new tab (for the GraphiQL IDE that will 
 ## 4. Experiment with GraphiQL
 It just so happens that [The Netflix DGS framework](https://netflix.github.io/dgs/getting-started/) comes with GraphiQL already integrated and ready for use. This is a wonderful tool you can use to explore graphQL queries and mutations. Let's experiement with this now!
 
-#### Here's the schema defined in our java backend per `graphql-backend-examples/src/main/resources/schema/schema.graphqls/schema.graphqls`
+#### Here's the schema defined in our java backend per `graphql-backend-examples/src/main/resources/schema/schema.graphqls`
 
 ```GraphQL
 type Query {
@@ -219,7 +219,7 @@ query ShowsAndGenres {
 Ok, so we've played a bit with some graphQL queries on the backend and looked at how a basic schema works, but how do we hook this into our React JS app?
 
 #### First, we need to run a couple commands to get things setup
-In your **`GitPod`** IDE navigate to the **`workshop-intro-to-graphql/graphql-client-examples`** terminal on the bottom right *(it should already be open for you)*.
+In your **`GitPod`** IDE navigate to the **`workshop-intro-to-graphql/graphql-client-examples`** terminal on the bottom left *(it should already be open for you)*.
 
 #### ✅  Execute the following command
 ```shell
@@ -261,9 +261,9 @@ const query = `
 
 All of the javascript wrapped around these is simply there to call the **graphQL** endpoint with the given query and pass the responseBody back to the calling function.
 
-#### Now for the cool part ####
+#### Now for the cool part
 
-Take a look at **`Shows.js`** and **`Genres.js`** located in **`graphql-client-examples/src/components/Shows.js`**. In both cases they use **React** state, `gqlResult`
+Take a look at **`Shows.js`** and **`Genres.js`** located in **`graphql-client-examples/src/components/`**. In both cases they use **React** state, `gqlResult`
 
 ```javascript
   const [gqlResult, setGqlResult] = useState(null)
@@ -273,7 +273,7 @@ to receive the responseBody from from our **graphQL** queries, set the **React**
 
 ```javascript
 // Asynchronously fetch any "shows" graphQL data from the Java backend
-// using the getShowsAstra serverless function to call out to the
+// using the getShowsBackend serverless function to call out to the
 // Netflix DGS Java graphQL endpoint
 const response = await fetch("/.netlify/functions/getShowsBackend", {
     method: "POST",
@@ -317,7 +317,7 @@ return gqlResult.data.genres.map(({ value }) => (
 ## 6. Hook up the data layer with Astra DB
 Ok, let's take this a step further and hook our app up to a data layer. As this point you should have already created your Astra DB database. Follow the instructions below to launch the **GraphQL Playground** provided in **Astra**
 
-#### ✅  Step 6a: Open GraphQL Playground by 
+#### ✅  Step 6a: Open GraphQL Playground by
 1. Click on your active database
 2. Click `Connect` TAB
 3. Click `GRAPHQL API`
@@ -326,21 +326,21 @@ Ok, let's take this a step further and hook our app up to a data layer. As this 
 *As show on the picture below.*
 ![image](tutorial/images/open-playground.png?raw=true)
 
-> *Note that values in the picture do no reflect the database name `netflix_workshop_db`, reason is we do not reproduce every picture each time*
+> *Note that values in the picture do no reflect the database name `workshops`, reason is we do not reproduce every picture each time*
 
 #### ✅  Step 6b: In GraphQL Playground, **Populate HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below
 ✅ Ensure you have the **`graphql-schema`** tab selected for this step
 
 ![image](tutorial/images/graphql-playground.png?raw=true)
 
-#### ✅  Step 6c: In GraphQL Playground, create a table with the following mutation, making sure to replace `netflix_keyspace` if you used a different name:
+#### ✅  Step 6c: In GraphQL Playground, create a table with the following mutation, making sure to replace `intrographql` if you used a different name:
 
 - Copy the following mutation on the left panel
 
 ```GraphQL
 mutation {
   reference_list: createTable(
-    keyspaceName:"netflix_keyspace",
+    keyspaceName:"intrographql",
     tableName:"reference_list",
     ifNotExists:true
     partitionKeys: [ 
@@ -360,7 +360,7 @@ mutation {
 
 ## 7. Insert data in the Table with GraphQL
 
-#### ✅  Step 7a: In graphQL playground, change tab to now use `graphql`. Edit the end of the URl to change from `system` to the name of your keyspace: `netflix_keyspace`
+#### ✅  Step 7a: In graphQL playground, change tab to now use `graphql`. Edit the end of the URl to change from `system` to the name of your keyspace: `intrographql`
 
 #### ✅  Step 7b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below (again !! yes this is not the same tab)
 
@@ -459,7 +459,7 @@ CTRL-C
  Note that this does require Node 15 and NPM 7 to work.  You can install a node version manager like `nvm` or `n` to use multiple versions on your system. **If you are using GitPod this should simply work since we pre-installed all of the dependcies for you.**
 
 ```shell
-npm exec astra-setup netflix_workshop_db netflix_keyspace
+npm exec astra-setup workshops intrographql
 ```
 
 You will be asked to: **Please paste the Database Admin Token here** so copy over the Token you saved earlier, and hit enter. It will start with AstraCS:cvdPRONUrUUT:...
@@ -530,7 +530,7 @@ Ok, so let's fix up the schema issue to resolve the error.
 ```GraphQL
 mutation CreateShowsTable {
   createTable(
-    keyspaceName: "netflix_keyspace"
+    keyspaceName: "intrographql"
     tableName: "show_by_name"
     partitionKeys: [{
       name: "title", type: {basic:TEXT}

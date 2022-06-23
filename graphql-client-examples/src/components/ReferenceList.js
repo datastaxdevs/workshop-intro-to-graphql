@@ -8,7 +8,7 @@ function ReferenceList() {
   const fetchData = async () => {
     
     // Asynchronously fetch any "reference_list" graphQL data from the Astra DB GraphQL API
-    // using the getShowsAstra serverless function to call out to the
+    // using the getGenresAstra serverless function to call out to the
     // Astra/Stargate graphQL endpoint
     // https://stargate.io/docs/stargate/1.0/developers-guide/graphql.html
     const response = await fetch("/.netlify/functions/getGenresAstra", {

@@ -8,7 +8,7 @@ function Genres() {
   const fetchData = async () => {
     
     // Asynchronously fetch any "genres" graphQL data from the Java backend
-    // using the getShowsAstra serverless function to call out to the
+    // using the getGenresBackend serverless function to call out to the
     // Netflix DGS Java graphQL endpoint
     const response = await fetch("/.netlify/functions/getGenresBackend", {
       method: "POST",
