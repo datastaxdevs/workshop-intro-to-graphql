@@ -109,6 +109,10 @@ _Note: If you already have a database named `workshops` you can just add the key
 
 The status will change from `Pending` to `Active` when the database is ready, this will only take 2-3 minutes. You will also receive an email when it is ready.
 
+> Notice: you may see that, along with your new database, also a Token is created for you.
+> That's great: you can simply copy the token
+> values and store them somewhere safe and skip the next step!
+
 [🏠 Back to Table of Contents](#table-of-contents)
 
 
