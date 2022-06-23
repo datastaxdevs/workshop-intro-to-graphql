@@ -96,7 +96,7 @@ That's it, you are done! Expect an email within about a week!
 
 **`ASTRADB`** is the simplest way to use Cassandra in an application with almost zero operations  - just push the button and get your cluster. No credit card required, $25.00 USD credit every month, roughly 20M reads/writes, 80GB storage monthly - sufficient to run small production workloads. Click here to start:
 
-<a href="https://astra.dev/6-29"><img src="img/create_astra_db.png?raw=true" /></a>
+<a href="https://astra.dev/6-29"><img src="tutorial/images/create_astra_db.png?raw=true" /></a>
 
 Follow the instructions on [creating an Astra DB instance](https://awesome-astra.github.io/docs/pages/astra/create-instance/#c-procedure) and use the following values:
 
