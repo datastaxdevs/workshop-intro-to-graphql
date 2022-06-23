@@ -4,6 +4,7 @@ function ShowsByName() {
   const [gqlResult, setGqlResult] = useState(null) // State to hold graphQL result data
   const [isLoading, setIsLoading] = useState(true) // State to determine when the async graphQL call is complete
   const [isError, setIsError] = useState(true) // State to determine if the graphQL payload contains an error object
+  const [errorString, setErrorString] = useState("") // State to keep the error message(s) for display if necessary
 
   const fetchData = async () => {
     
@@ -33,6 +34,7 @@ function ShowsByName() {
       // and if any exist set error state and dump the message to the console
       if ('errors' in gqlResult) {
         setIsError(true)
+        setErrorString(JSON.stringify(gqlResult.errors))
         console.log("show_by_name ERROR IS: ", gqlResult.errors)
       } else {
         setIsError(false)
@@ -46,7 +48,7 @@ function ShowsByName() {
 
   // If there is an error state display error text and return
   // This will exit the function and "skip" conditions below it
-  if (isError) return <p>Error :(</p>;
+  if (isError) return <p>Error :( <span style={{color: "red"}}>{ errorString }</span></p>;
 
   // If payload loading is complete and there are no errors
   // now check to see there is any data returned
