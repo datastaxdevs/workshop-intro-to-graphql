@@ -32,7 +32,7 @@ The materials have been built by the DataStax developer advocates team.
 
 > There is nothing preventing you from running the workshop on your own machine.
 > If you do so, you will need
-> * [node 15 and npm 7 or later](https://www.whitesourcesoftware.com/free-developer-tools/blog/update-node-js/)
+> * [node 15 or 16 and npm 7 or later](https://www.whitesourcesoftware.com/free-developer-tools/blog/update-node-js/)
 > * netlify-cli (use "npm install -g netlify-cli")
 >
 > You will have to adapt commands and paths based on your environment and install the dependencies by yourself. **We won't provide support** to keep on track with schedule. However, we will do our best to give you the info you need to be successful. **This is considered a more advanced path to take.**
@@ -93,45 +93,29 @@ That's it, you are done! Expect an email within about a week!
 # Part 1 - DB Setup & Data Ingest
 
 ## 1. Login or Register to AstraDB and create database
-**`ASTRADB`** is the simplest way to run Cassandra with zero operations at all - just push the button and get your cluster. No credit card required, FREE for roughly 5M writes, 30M reads, 40GB storage monthly - sufficient to run small production workloads.  
 
-✅ **Step 1a:** Click the button to login or register with Datastax. You can use your `Github`, `Google` accounts or register with an `email`.
+**`ASTRADB`** is the simplest way to use Cassandra in an application with almost zero operations  - just push the button and get your cluster. No credit card required, $25.00 USD credit every month, roughly 20M reads/writes, 80GB storage monthly - sufficient to run small production workloads. Click here to start:
 
-_Make sure to chose a password with minimum 8 characters, containing upper and lowercase letters, at least one number and special character_
+<a href="https://astra.dev/6-29"><img src="img/create_astra_db.png?raw=true" /></a>
 
-<a href="https://astra.dev/6-29"><img src="tutorial/images/create_astra_db.png?raw=true" /></a>
-- <details><summary>Show me!</summary>
-    <img src="https://github.com/datastaxdevs/workshop-spring-stargate/raw/main/images/tutorials/astra-create-db.gif?raw=true" />
-</details>
+Follow the instructions on [creating an Astra DB instance](https://awesome-astra.github.io/docs/pages/astra/create-instance/#c-procedure) and use the following values:
 
-**Use the following values when creating the database**
 |Field| Value|
 |---|---|
 |**database name**| `workshops` |
 |**keyspace**| `intrographql` |
-|**Cloud Provider**| *Use the one you like, click a cloud provider logo,  pick an Area in the list and finally pick a region.* |
 
-_You can technically use whatever you want and update the code to reflect the keyspace. This is really to get you on a happy path for the first run._
+_Note: If you already have a database named `workshops` you can just add the keyspace name `netflix` to it. You may need to "Resume" the database first._
 
-You will see your new database `pending` OR `initializing` in the Dashboard.
-
-![image](./tutorial/images/db-pending.png?raw=true)
-
-The status will change to `Active` when the database is ready, this will only take 2-3 minutes. You will also receive an email when it is ready.
+The status will change from `Pending` to `Active` when the database is ready, this will only take 2-3 minutes. You will also receive an email when it is ready.
 
 [🏠 Back to Table of Contents](#table-of-contents)
 
 
 ## 2. Create a security token
 
-✅  **Step 2a:**  [Create a token for your app](https://docs.datastax.com/en/astra/docs/manage-application-tokens.html) to use in the settings screen. Use "Database Administrator" permission.
-
-✅  **Step 2b:**  Copy the token value (eg `AstraCS:KDfdKeNREyWQvDpDrBqwBsUB:ec80667c....`) in your clipboard and save the CSV, this value would not be provided afterward.
-
-**👁️ Expected output**
-- <details><summary>Show me!</summary>
-    <img src="https://github.com/datastaxdevs/workshop-spring-stargate/raw/main/images/tutorials/astra-create-token.gif?raw=true" />
-</details>
+[Create a token for your app](https://awesome-astra.github.io/docs/pages/astra/create-token/#c-procedure), _using the "Database Administrator" role_. Keep it handy for later use (best to download the CSV token, as the values
+will not be visible afterward). The token you'll need looks like `AstraCS:KDfdKeNREyWQvDpDrBqwBsUB:ec80667c....`
 
 [🏠 Back to Table of Contents](#table-of-contents)
 
@@ -142,7 +126,7 @@ The status will change to `Active` when the database is ready, this will only ta
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/datastaxdevs/workshop-intro-to-graphql)
 
 
-This will startup your demo environment. Be patient, it will take a couple minutes as everything loads up.
+This will bootstrap your demo environment. Be patient, it will take a couple minutes as everything loads up.
 
 You may be asked if it's OK to launch a new tab (for the GraphiQL IDE that will be used subsequently. Click on Open to make sure the new tab opens as shown below.
 
