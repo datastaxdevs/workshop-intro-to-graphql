@@ -63,12 +63,13 @@ It doesn't matter if you join our workshop live or you prefer to do at your own 
 
 Don't forget to complete your upgrade and get your verified skill badge! Finish and submit your homework!
 
-1. Complete the practice steps from this repository as described below through step 9
-2. Insert (mutate) a show or genre of your choice in the database.
-3. Make a single screenshot of the React app with all of the working Astra DB sections
-4. Submit your homework [here](https://github.com/datastaxdevs/workshop-intro-to-graphql/issues/new?assignees=HadesArchitect%2C+SonicDMG%2C+RyanWelford&labels=homework%2C+wait+for+review&template=homework-assignment.md&title=%5BHW%5D+%3CNAME%3E)
+1. Complete the practice steps from this repository, as described below, to the end;
+2. Insert (mutate) a **new show** or a **new genre** of your choice in the database;
+3. Take a single **screenshot** of the React app with all of the working Astra DB sections and showing the entry you just added;
+4. Submit your homework [here](https://docs.google.com/forms/d/1ZJ2K5MfWnYqKzPDtDi_uxFLq925e7S2J1-7LtAqwx94/viewform).
 
-That's it, you are done! Expect an email within about a week!
+That's it, done.
+We will then grade the submissions: expect an email in a few days!
   
 # Let's start
 
