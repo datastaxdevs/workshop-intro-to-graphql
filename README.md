@@ -105,7 +105,7 @@ Follow the instructions on [creating an Astra DB instance](https://awesome-astra
 |**database name**| `workshops` |
 |**keyspace**| `intrographql` |
 
-_Note: If you already have a database named `workshops` you can just add the keyspace name `netflix` to it. You may need to "Resume" the database first._
+_Note: If you already have a database named `workshops` you can just add the keyspace name `intrographql` to it. You may need to "Resume" the database first._
 
 The status will change from `Pending` to `Active` when the database is ready, this will only take 2-3 minutes. You will also receive an email when it is ready.
 
@@ -458,6 +458,13 @@ This will add a set of envrionment variables for database authentication to your
 
 ![Screen Shot 2021-09-13 at 9 45 41 PM](https://user-images.githubusercontent.com/23346205/133181009-928f4172-a687-43eb-b9ee-8c3d2e7483dd.png)
 
+> If you have multiple keyspaces, chances are the ending of the entry for
+> `ASTRA_GRAPHQL_ENDPOINT` will have them all in a comma-separated list
+> (e.g. `https://1960a[...]api/graphql/ks1,ks2,intrographql,ks3`).
+> This is due to a known bug in the `astra-setup` tool.
+> In this case, please manually correct the entry to simply
+> `[...]api/graphql/intrographql`.
+
 #### ✅ Start your React app back up with the following command
 ```shell
 netlify dev
@@ -466,7 +473,7 @@ netlify dev
 #### ✅ Step 9b: Verify data load
 At this point your app should be running with a bunch of data displayed in the **`Shows`**, **`Genres,`** and **`ReferenceList`** sections, but notice the **`ShowsByName`** section displays **"Error :("**
 
-![Screen Shot 2021-09-13 at 10 00 26 PM](https://user-images.githubusercontent.com/23346205/133182276-3420d435-8f72-4e0c-ae5f-c7f0834a357c.png)
+![Screen Shot 2021-09-13 at 10 00 26 PM](tutorial/images/error_shows_by_name.png?raw=true)
 
 #### Can you figure out what's going on here?
 Let's break this down.
