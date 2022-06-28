@@ -70,7 +70,7 @@ Don't forget to complete your upgrade and get your verified skill badge! Finish 
 
 That's it, done.
 We will then grade the submissions: expect an email in a few days!
-  
+
 # Let's start
 
 
