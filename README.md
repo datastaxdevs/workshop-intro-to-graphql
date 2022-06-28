@@ -66,7 +66,7 @@ Don't forget to complete your upgrade and get your verified skill badge! Finish 
 1. Complete the practice steps from this repository, as described below, to the end;
 2. Insert (mutate) a **new show** or a **new genre** of your choice in the database;
 3. Take a single **screenshot** of the React app with all of the working Astra DB sections and showing the entry you just added;
-4. Submit your homework [here](https://docs.google.com/forms/d/1ZJ2K5MfWnYqKzPDtDi_uxFLq925e7S2J1-7LtAqwx94/viewform).
+4. Submit your homework [here](https://dtsx.io/homework-intro-graphql).
 
 That's it, done.
 We will then grade the submissions: expect an email in a few days!
