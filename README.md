@@ -578,7 +578,23 @@ Notice this no longer displays **"Error :("**, but now correctly displays the da
 
 #### Feel free to experiment with a couple more graphQL queries now that you have some data in the table
 
-Notice in this case we are passing a "title" parameter "Ozark" to only return the show values that match that title.
+Queries usually offer some way to restrict the results returned,
+in the form of parameters passed to queries. Recall the original `getAllShows`, repeated here for convenience:
+
+
+```GraphQL
+query getAllShows {
+  show_by_name {
+    values {
+      title
+      releaseYear
+    }
+  }
+}
+```
+
+Now let's see a way to pass a `title` parameter to the query and just get
+matching values (a single entry, in this case):
 
 ```GraphQL
 query getOneShow {
@@ -591,9 +607,12 @@ query getOneShow {
 }
 ```
 
+The following query, which uses the more general `filter` syntax,
+is completely equivalent to the previous one:
+
 ```GraphQL
-query getAllShows {
-  show_by_name {
+query getOneShowF {
+  show_by_name(filter: {title: {eq: "Ozark"}}){
     values {
       title
       releaseYear
@@ -601,6 +620,7 @@ query getAllShows {
   }
 }
 ```
+
 
 ### That's it, you did it! Nice job!
 We hope this workshop gave you enough information on GraphQL to be dangerous and start you on a journey to using GraphQL in your own apps. Also, don't forget to do the [HOMEWORK](#homework)
