@@ -108,21 +108,22 @@ Follow the instructions on [creating an Astra DB instance](https://awesome-astra
 
 _Note: If you already have a database named `workshops` you can just add the keyspace name `intrographql` to it. You may need to "Resume" the database first._
 
+While the database is being created, you will also get a **Security token**:
+save it somewhere safe, as it will be needed to later access the database!
+(In particular the string starting with `AstraCS:...`.)
+
 The status will change from `Pending` to `Active` when the database is ready, this will only take 2-3 minutes. You will also receive an email when it is ready.
-
-> Notice: you may see that, along with your new database, also a Token is created for you.
-> That's great: you can simply copy the token
-> values and store them somewhere safe and skip the next step!
-
-[🏠 Back to Table of Contents](#table-of-contents)
 
 
 ## 2. Create a security token
 
-[Create a token for your app](https://awesome-astra.github.io/docs/pages/astra/create-token/#c-procedure), _using the "Database Administrator" role_. Keep it handy for later use (best to download the CSV token, as the values
+> Note: you should have a token already, in which case _skip to step 3_.
+> In case you don't (e.g. you added a keyspace to a pre-existing database), read on.
+
+[Create a token for your app](https://awesome-astra.github.io/docs/pages/astra/create-token/#c-procedure), _using the "Database Administrator" role_.
+Keep it handy for later use (best to download the CSV token, as the values
 will not be visible afterward). The token you'll need looks like `AstraCS:KDfdKeNREyWQvDpDrBqwBsUB:ec80667c....`
 
-[🏠 Back to Table of Contents](#table-of-contents)
 
 ## 3. Launch Gitpod
 
