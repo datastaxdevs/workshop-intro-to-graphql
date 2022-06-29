@@ -607,7 +607,7 @@ query getOneShow {
 }
 ```
 
-The following query, which uses the more general `filter` syntax,
+The following query, which uses the [more general `filter` syntax](https://docs.datastax.com/en/astra/docs/develop/dev-with-graphql-cql-first.html#_retrieve_data),
 is completely equivalent to the previous one:
 
 ```GraphQL
