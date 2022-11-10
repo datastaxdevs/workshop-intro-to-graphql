@@ -126,8 +126,8 @@ will not be visible afterward). The token you'll need looks like `AstraCS:KDfdKe
 
 > **⚠️ Important**
 > ```
-> The instructor will show you on screen how to create a token 
-> but will have to destroy to token immediately for security reasons.
+> The instructor will show the token creation on screen,
+> but will then destroy it immediately for security reasons.
 > ```
 
 ## 3. Launch Gitpod
