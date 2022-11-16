@@ -458,7 +458,7 @@ gp open .env
 In the editor, paste your `AstraCS:...` Astra DB Admin token and the GraphQL URL (the one found on the second Playground tab, ending in `.../intrographql`)
 in the first two lines of the `.env`.
 
-The credentials are now all set up. Here is how the `.env` might look like:
+The credentials are now all set up. Here is how the `.env` might look like (as a reference, check out the provided `.env.sample`):
 
 ![Sample dot-env file](tutorial/images/dot-env.png)
 
