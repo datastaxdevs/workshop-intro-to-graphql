@@ -360,7 +360,7 @@ Follow the instructions below to launch the **GraphQL Playground** provided in *
 ✅ Ensure you have the **`graphql-schema`** tab selected for this step
 
 > Note: the GraphQL Playground starts with a ready-to-use _temporary token_ as the `x-cassandra-token` header. But we want the queries run in the Playground
-> to be identical to those that the Netlify functions will run from code, so **please replace the token with your DB Admin token as instructed**.
+> to be identical to those that the Netlify functions will run from code, so **please replace the token with your DB token as instructed**.
 
 ![image](tutorial/images/graphql-playground.png?raw=true)
 
@@ -393,7 +393,7 @@ mutation {
 
 ![GraphQL URL ending](tutorial/images/graphql-url-ending.png)
 
-#### ✅  Step 7b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your DB Admin token as shown below _(Note: you did this for the `graphql-schema` tab, now repeat for the `graphql` tab!)_
+#### ✅  Step 7b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your DB token as shown below _(Note: you did this for the `graphql-schema` tab, now repeat for the `graphql` tab!)_
 
 ![image](tutorial/images/graphql-playground-2.png?raw=true)
 
@@ -488,9 +488,11 @@ cat .local-backend.env >> .env
 gp open .env
 ```
 
-In the editor, paste your `AstraCS:...` Astra DB Admin token and the GraphQL URL (the one found on the second Playground tab, ending in `.../intrographql`)
-in the first two lines of the `.env`.
+In the editor, fill the definitions in the `.env` with:
 
+- your `AstraCS:...` Astra DB token string as `ASTRA_DB_APPLICATION_TOKEN`;
+- the URL to your GraphQL (as found on the second Playground tab, ending in `.../intrographql`) as `ASTRA_DB_GRAPHQL_URL`.
+  
 The credentials are now all set up. Here is how the `.env` might look like (as a reference, check out the provided `.env.sample`):
 
 ![Sample dot-env file](tutorial/images/dot-env.png)
