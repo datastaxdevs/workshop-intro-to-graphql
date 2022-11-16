@@ -25,25 +25,42 @@ The materials have been built by the DataStax developer advocates team.
 
 ## ℹ️ Frequently asked questions ℹ️
 
-- *Can I run the workshop on my computer?*
+<p/>
+<details>
+<summary><b> 1️⃣ Can I run this workshop on my computer?</b></summary>
+<hr>
+<p>There is nothing preventing you from running the workshop on your own machine. If you do so, you will need the following:
+<ol>
+  <li><a href="https://www.whitesourcesoftware.com/free-developer-tools/blog/update-node-js/">node 15 or 16 and npm 7 or later</a></li>
+  <li>netlify-cli (use "npm install -g netlify-cli")</li>
+</ol>
+</p>
+You will have to adapt commands and paths based on your environment (including digging into file <pre>.gitpod.yml</pre>) and install the dependencies by yourself. <strong>We won't provide support</strong> to keep on track with schedule. However, we will do our best to give you the info you need to be successful. <strong>This is considered a more advanced path to take.</strong>
+</details>
+<p/>
+<details>
+<summary><b> 2️⃣ What other prerequisites are there?</b></summary>
+<hr>
+<ul>
+<li>You will need a github account</li>
+<li>You will need an Astra DB account, but we'll work through that in the exercises</li>
+</ul>
+</p>
+</details>
+<p/>
+<details>
+<summary><b> 3️⃣ Do I need to pay for anything for this workshop?</b></summary>
+<hr>
+<b>No.</b> All tools and services we provide here are FREE. FREE not only during the session but also after.
+</details>
+<p/>
+<details>
+<summary><b> 4️⃣ Will I get a certificate if I attend this workshop?</b></summary>
+<hr>
+Attending the session is not enough. You need to complete the homework detailed below and you will get a nice badge that you can share on linkedin or anywhere else *(open badge specification)*
+</details>
+<p/>
 
-> There is nothing preventing you from running the workshop on your own machine.
-> If you do so, you will need
-> * [node 15 or 16 and npm 7 or later](https://www.whitesourcesoftware.com/free-developer-tools/blog/update-node-js/)
-> * netlify-cli (use "npm install -g netlify-cli")
->
-> You will have to adapt commands and paths based on your environment (including digging into file `.gitpod.yml`) and install the dependencies by yourself. **We won't provide support** to keep on track with schedule. However, we will do our best to give you the info you need to be successful. **This is considered a more advanced path to take.**
-
-- *What other prerequisites are there?*
-> * You will need a github account
-> * You will need an Astra DB account, but we'll work through that in the exercises
-
-- *Do I need to pay for anything for this workshop?*
-> * **No.** All tools and services we provide here are FREE.
-
-- *Will I get a certificate if I attend this workshop?*
-
-> Attending the session is not enough. You can earn yourself a nice badge to brag about if you complete all of the homework.
 
 ## Materials for the Session
 
@@ -92,24 +109,32 @@ We will then grade the submissions: expect an email in a few days!
 
 ## 1. Login or Register to AstraDB and create database
 
-**`ASTRADB`** is the simplest way to use Cassandra in an application with almost zero operations  - just push the button and get your cluster. No credit card required, $25.00 USD credit every month, roughly 20M reads/writes, 80GB storage monthly - sufficient to run small production workloads. Click here to start:
+_**`ASTRA DB`** is the simplest way to run Cassandra with zero operations at all - just push the button and get your cluster. No credit card required, 40M read/write operations and about 80GB storage monthly for free - sufficient to run small production workloads. If you end your credits the databases will pause, no charge_
 
-<a href="https://astra.dev/6-29"><img src="tutorial/images/create_astra_db.png?raw=true" /></a>
+Leveraging [Database creation guide](https://awesome-astra.github.io/docs/pages/astra/create-instance/#c-procedure) create a database. *Right-Click the following button* with *Open in a new TAB.*
 
-Follow the instructions on [creating an Astra DB instance](https://awesome-astra.github.io/docs/pages/astra/create-instance/#c-procedure) and use the following values:
+<a href="https://astra.dev/yt-11-23"><img src="tutorial/images/create_astra_db.png?raw=true" /></a>
 
-|Field| Value|
+|Field|Value|
 |---|---|
-|**database name**| `workshops` |
-|**keyspace**| `intrographql` |
+|**Database Name**| `workshops`|
+|**Keyspace Name**| `intrographql`|
+|**Regions**| Select `GOOGLE CLOUD`, then an Area close to you, then a region with no LOCKER 🔒 icons: those are the region accessible to the Free Tier.
 
-_Note: If you already have a database named `workshops` you can just add the keyspace name `intrographql` to it. You may need to "Resume" the database first._
+> **ℹ️ Note:** If you already have a database `workshops`, simply add a keyspace `intrographql` using the `Add Keyspace` button on the bottom right hand corner of db dashboard page. You may have to "Resume" the database first in case it is in "hibernated" state.
 
-While the database is being created, you will also get a **Security token**:
-save it somewhere safe, as it will be needed to later access the database!
-(In particular the string starting with `AstraCS:...`.)
+While the database is being created, you will also get a **Security token**: 
+save it somewhere safe, you will need it later to connect to the GraphQL endpoint for your DB
+(in particular the string starting with `AstraCS:...`.)
 
-The status will change from `Pending` to `Active` when the database is ready, this will only take 2-3 minutes. You will also receive an email when it is ready.
+> **⚠️ Important**
+> ```
+> The instructor will show the token creation on screen,
+> but will then destroy it immediately for security reasons.
+> ```
+
+The status will change from `Pending` to `Active` when the database is ready, this will only take 2-3 minutes.
+
 
 
 ## 2. Create a security token
@@ -314,14 +339,22 @@ Ok, let's take this a step further and hook our app up to a data layer. As this 
 Follow the instructions below to launch the **GraphQL Playground** provided in **Astra**:
 
 #### ✅  Step 6a: Open GraphQL Playground:
-1. Click on your active database
+
+1. Click on the "workshops" database on the left (expanding the list if needed)
 2. Click `Connect` TAB
 3. Click the `APIs`  connection method
 4. Make sure `GraphQL API` is selected
 5. Locate the link to your GraphQL Playground in the text
 
-*As show on the picture below.*
 ![image](tutorial/images/open-playground-2.png?raw=true)
+
+<details>
+<summary><strong>Click here if you are using the "New Astra Experience" UI</strong></summary>
+
+![image](tutorial/images/open-playground-2-wh.png)
+
+</details>
+
 
 #### ✅  Step 6b: In GraphQL Playground, **Populate HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below (including the `AstraCS:` part)
 ✅ Ensure you have the **`graphql-schema`** tab selected for this step
