@@ -310,9 +310,10 @@ return gqlResult.data.genres.map(({ value }) => (
 ```
 
 ## 6. Hook up the data layer with Astra DB
-Ok, let's take this a step further and hook our app up to a data layer. As this point you should have already created your Astra DB database. Follow the instructions below to launch the **GraphQL Playground** provided in **Astra**
+Ok, let's take this a step further and hook our app up to a data layer. As this point you should have already [created your Astra DB database](#1-login-or-register-to-astradb-and-create-database).
+Follow the instructions below to launch the **GraphQL Playground** provided in **Astra**:
 
-#### ✅  Step 6a: Open GraphQL Playground by
+#### ✅  Step 6a: Open GraphQL Playground:
 1. Click on your active database
 2. Click `Connect` TAB
 3. Click the `APIs`  connection method
@@ -322,17 +323,15 @@ Ok, let's take this a step further and hook our app up to a data layer. As this 
 *As show on the picture below.*
 ![image](tutorial/images/open-playground-2.png?raw=true)
 
-> *Note that values in the picture do no reflect the database name `workshops`, reason is we do not reproduce every picture each time*
-
-#### ✅  Step 6b: In GraphQL Playground, **Populate HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below
+#### ✅  Step 6b: In GraphQL Playground, **Populate HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below (including the `AstraCS:` part)
 ✅ Ensure you have the **`graphql-schema`** tab selected for this step
 
 > Note: the GraphQL Playground starts with a ready-to-use _temporary token_ as the `x-cassandra-token` header. But we want the queries run in the Playground
-> to be identical to those that the Netlify function will run from code, so **please replace the token with your DB Admin token as instructed**.
+> to be identical to those that the Netlify functions will run from code, so **please replace the token with your DB Admin token as instructed**.
 
 ![image](tutorial/images/graphql-playground.png?raw=true)
 
-#### ✅  Step 6c: In GraphQL Playground, create a table with the following mutation, making sure to replace `intrographql` if you used a different name:
+#### ✅  Step 6c: In GraphQL Playground, create a table with the following mutation, making sure to replace `intrographql` if you used a different keyspace name:
 
 - Copy the following mutation on the left panel
 
@@ -355,15 +354,13 @@ mutation {
 
 ![image](tutorial/images/playground-1.png?raw=true)
 
-[🏠 Back to Table of Contents](#table-of-contents)
-
 ## 7. Insert data in the Table with GraphQL
 
 #### ✅  Step 7a: In graphQL playground, switch to the second Playground tab (`graphql`). Edit the ending of the URL _shown within the Playground page_ from `system` to the keyspace name `intrographql`:
 
 ![GraphQL URL ending](tutorial/images/graphql-url-ending.png)
 
-#### ✅  Step 7b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your DB Admin token as shown below _(Note: do it again, since this is not the same tab as before!)_
+#### ✅  Step 7b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your DB Admin token as shown below _(Note: you did this for the `graphql-schema` tab, now repeat for the `graphql` tab!)_
 
 ![image](tutorial/images/graphql-playground-2.png?raw=true)
 
@@ -423,8 +420,6 @@ mutation insertGenres {
 
 * Use the arrow in the middle of the screen to execute the query
 
-[🏠 Back to Table of Contents](#table-of-contents)
-
 ## 8. Retrieving list of values
 
 #### ✅  Step 8a: In GraphQL Playground, not changing tab (yeah) list values from the table with the following query.
@@ -442,8 +437,6 @@ query getAllGenre {
 *👁️ Expected output*
 ![image](tutorial/images/graphql-playground-3.png?raw=true)
 
-[🏠 Back to Table of Contents](#table-of-contents)
-
 ## 9. Hook the database up to our React/JS app
 So, you just created a table, inserted (mutated) some rows into the table, and then retrieved all of the genres with the "getAllGenre" query using the GraphQL Playground provided as part of Astra DB. Now, let's hook our client up to our Astra DB graphQL endpiont and render the results to our website with React.
 
@@ -452,7 +445,7 @@ In the **`GitPod`** IDE, click on the "Client" terminal to make it active, hit `
 
 Now you will create a `.env` file with connection info (addresses and secrets) for the Netlify function to be able to reach both the local backend and your Astra DB's GraphQL endpoint.
 
-<-- TODO: replace with astra-cli usage -->
+<!--- TODO: replace with astra-cli usage --->
 
 Paste this in the console (which will create and open a stub for the `.env`):
 ```shell
