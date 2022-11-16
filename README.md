@@ -35,7 +35,7 @@ The materials have been built by the DataStax developer advocates team.
   <li>netlify-cli (use "npm install -g netlify-cli")</li>
 </ol>
 </p>
-You will have to adapt commands and paths based on your environment (including digging into file <pre>.gitpod.yml</pre>) and install the dependencies by yourself. <strong>We won't provide support</strong> to keep on track with schedule. However, we will do our best to give you the info you need to be successful. <strong>This is considered a more advanced path to take.</strong>
+You will have to adapt commands and paths based on your environment (including digging into file ".gitpod.yml") and install the dependencies by yourself. <strong>We won't provide support</strong> to keep on track with schedule. However, we will do our best to give you the info you need to be successful. <strong>This is considered a more advanced path to take.</strong>
 </details>
 <p/>
 <details>
@@ -51,13 +51,13 @@ You will have to adapt commands and paths based on your environment (including d
 <details>
 <summary><b> 3️⃣ Do I need to pay for anything for this workshop?</b></summary>
 <hr>
-<b>No.</b> All tools and services we provide here are FREE. FREE not only during the session but also after.
+<b>No.</b> All tools and services we provide here are FREE. FREE not only during the session but also afterwards.
 </details>
 <p/>
 <details>
 <summary><b> 4️⃣ Will I get a certificate if I attend this workshop?</b></summary>
 <hr>
-Attending the session is not enough. You need to complete the homework detailed below and you will get a nice badge that you can share on linkedin or anywhere else *(open badge specification)*
+Attending the session is not enough. You need to complete the homework detailed below and you will get a nice badge that you can share on linkedin or anywhere else <strong>(open badge specification)</strong>.
 </details>
 <p/>
 
@@ -121,7 +121,7 @@ Leveraging [Database creation guide](https://awesome-astra.github.io/docs/pages/
 |**Keyspace Name**| `intrographql`|
 |**Regions**| Select `GOOGLE CLOUD`, then an Area close to you, then a region with no LOCKER 🔒 icons: those are the region accessible to the Free Tier.
 
-> **ℹ️ Note:** If you already have a database `workshops`, simply add a keyspace `intrographql` using the `Add Keyspace` button on the bottom right hand corner of db dashboard page. You may have to "Resume" the database first in case it is in "hibernated" state.
+> **ℹ️ Note:** If you already have a database `workshops`, simply add a keyspace `intrographql` using the `Add Keyspace` button on the bottom right hand corner of the DB Dashboard page. You may have to "Resume" the database first in case it is in "hibernated" state.
 
 While the database is being created, you will also get a **Security token**: 
 save it somewhere safe, you will need it later to connect to the GraphQL endpoint for your DB
