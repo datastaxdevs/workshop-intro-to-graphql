@@ -1,4 +1,3 @@
-<!--- STARTEXCLUDE --->
 # 🎓 Introduction to GraphQL + React + Java + Astra DB
 
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/from-referrer/)
@@ -14,8 +13,6 @@ This is a companion to our [Netflix Clone using Astra DB and GraphQL](https://gi
 Finally, this content uses **React/JS** concepts. If you are not familiar with those or need a refresher, [take a look HERE](https://github.com/datastaxdevs/react-basics) to get up to date.
 
 The materials have been built by the DataStax developer advocates team.
-
-<!--- ENDEXCLUDE --->
 
 ![image](./tutorial/images/graphQL_logo.png)
 
@@ -35,12 +32,11 @@ The materials have been built by the DataStax developer advocates team.
 > * [node 15 or 16 and npm 7 or later](https://www.whitesourcesoftware.com/free-developer-tools/blog/update-node-js/)
 > * netlify-cli (use "npm install -g netlify-cli")
 >
-> You will have to adapt commands and paths based on your environment and install the dependencies by yourself. **We won't provide support** to keep on track with schedule. However, we will do our best to give you the info you need to be successful. **This is considered a more advanced path to take.**
+> You will have to adapt commands and paths based on your environment (including digging into file `.gitpod.yml`) and install the dependencies by yourself. **We won't provide support** to keep on track with schedule. However, we will do our best to give you the info you need to be successful. **This is considered a more advanced path to take.**
 
 - *What other prerequisites are there?*
 > * You will need a github account
 > * You will need an Astra DB account, but we'll work through that in the exercises
-> * Use **Chrome** or **Firefox** for the best experience.
 
 - *Do I need to pay for anything for this workshop?*
 > * **No.** All tools and services we provide here are FREE.
@@ -55,7 +51,8 @@ It doesn't matter if you join our workshop live or you prefer to do at your own 
 
 - [Slide deck](./slides/slides.pdf)
 - [Discord chat](https://bit.ly/cassandra-workshop)
-- [Questions and Answers](https://community.datastax.com/)
+- ["cassandra" on StackOverflow](https://stackoverflow.com/questions/tagged/cassandra)
+- ["cassandra" on DBA StackExchange](https://dba.stackexchange.com/questions/tagged/cassandra)
 
 ## Homework
 
@@ -91,7 +88,7 @@ We will then grade the submissions: expect an email in a few days!
 
 [A Beginner's Guide to GraphQL](https://www.youtube.com/watch?v=c2fJ7T0N1Sk) - Ali Spittel's really awesome GraphQL starter video
 
-# Part 1 - DB Setup & Data Ingest
+
 
 ## 1. Login or Register to AstraDB and create database
 
@@ -139,12 +136,12 @@ will not be visible afterward). The token you'll need looks like `AstraCS:KDfdKe
 
 This will bootstrap your demo environment. Be patient, it will take a couple minutes as everything loads up.
 
-You may be asked if it's OK to launch a new tab (for the GraphiQL IDE that will be used subsequently. Click on Open to make sure the new tab opens as shown below.
-
-![image](./tutorial/images/NewTabOpen.png?raw=true)
+> **Note**: during loading of the Gitpod environment, a new tab will be tentatively opened
+> with an URL such as `https://8080-datastaxdev-[...].gitpod.io/graphiql`.
+> Please **CHECK YOUR POPUP BLOCKER** and allow it before continuing!
 
 ## 4. Experiment with GraphiQL
-It just so happens that [The Netflix DGS framework](https://netflix.github.io/dgs/getting-started/) comes with GraphiQL already integrated and ready for use. This is a wonderful tool you can use to explore graphQL queries and mutations. Let's experiement with this now!
+It just so happens that [The Netflix DGS framework](https://netflix.github.io/dgs/getting-started/) comes with GraphiQL already integrated and ready for use. This is a wonderful tool you can use to explore graphQL queries and mutations. Let's experiment with this now!
 
 #### Here's the schema defined in our java backend per `graphql-backend-examples/src/main/resources/schema/schema.graphqls`
 
@@ -214,7 +211,10 @@ query ShowsAndGenres {
 Ok, so we've played a bit with some graphQL queries on the backend and looked at how a basic schema works, but how do we hook this into our React JS app?
 
 #### First, we need to run a couple commands to get things setup
-In your **`GitPod`** IDE navigate to the **`workshop-intro-to-graphql/graphql-client-examples`** terminal on the bottom left *(it should already be open for you)*.
+In your **`GitPod`** IDE navigate to the "Client" terminal
+*(it should already be open for you on the bottom left)*
+and make sure you are in the **`workshop-intro-to-graphql/graphql-client-examples`** directory.
+**This is where you'll be running the nodejs/React app.**
 
 #### ✅  Execute the following command
 ```shell
@@ -274,7 +274,7 @@ const response = await fetch("/.netlify/functions/getShowsBackend", {
     method: "POST",
 })
 const responseBody = await response.json()
-setGqlResult(responseBody) // on reponse set our graphQL result state
+setGqlResult(responseBody) // on response set our graphQL result state
 ```
 
 Notice how the fields (title, releaseYear) match our **graphQL** `Shows` schema exactly.
@@ -315,16 +315,20 @@ Ok, let's take this a step further and hook our app up to a data layer. As this 
 #### ✅  Step 6a: Open GraphQL Playground by
 1. Click on your active database
 2. Click `Connect` TAB
-3. Click `GRAPHQL API`
-4. Click link to your playground.
+3. Click the `APIs`  connection method
+4. Make sure `GraphQL API` is selected
+5. Locate the link to your GraphQL Playground in the text
 
 *As show on the picture below.*
-![image](tutorial/images/open-playground.png?raw=true)
+![image](tutorial/images/open-playground-2.png?raw=true)
 
 > *Note that values in the picture do no reflect the database name `workshops`, reason is we do not reproduce every picture each time*
 
 #### ✅  Step 6b: In GraphQL Playground, **Populate HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below
 ✅ Ensure you have the **`graphql-schema`** tab selected for this step
+
+> Note: the GraphQL Playground starts with a ready-to-use _temporary token_ as the `x-cassandra-token` header. But we want the queries run in the Playground
+> to be identical to those that the Netlify function will run from code, so **please replace the token with your DB Admin token as instructed**.
 
 ![image](tutorial/images/graphql-playground.png?raw=true)
 
@@ -355,9 +359,11 @@ mutation {
 
 ## 7. Insert data in the Table with GraphQL
 
-#### ✅  Step 7a: In graphQL playground, change tab to now use `graphql`. Edit the end of the URl to change from `system` to the name of your keyspace: `intrographql`
+#### ✅  Step 7a: In graphQL playground, switch to the second Playground tab (`graphql`). Edit the ending of the URL _shown within the Playground page_ from `system` to the keyspace name `intrographql`:
 
-#### ✅  Step 7b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below (again !! yes this is not the same tab)
+![GraphQL URL ending](tutorial/images/graphql-url-ending.png)
+
+#### ✅  Step 7b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your DB Admin token as shown below _(Note: do it again, since this is not the same tab as before!)_
 
 ![image](tutorial/images/graphql-playground-2.png?raw=true)
 
@@ -442,35 +448,26 @@ query getAllGenre {
 So, you just created a table, inserted (mutated) some rows into the table, and then retrieved all of the genres with the "getAllGenre" query using the GraphQL Playground provided as part of Astra DB. Now, let's hook our client up to our Astra DB graphQL endpiont and render the results to our website with React.
 
 #### ✅ Step 9a: Configure database credentials
-In your **`GitPod`** IDE navigate to the **`workshop-intro-to-graphql/graphql-client-examples`** terminal on the bottom right *(it should already be open for you)*. **This is running your nodejs/React app.**
+In the **`GitPod`** IDE, click on the "Client" terminal to make it active, hit `Ctrl-C` to stop the running client, if any, and make sure you are in the **`workshop-intro-to-graphql/graphql-client-examples`** directory.
 
-#### ✅ Execute the following command in your terminal to stop the React app
-*You will need to hold the control button and the letter C at the same time*
+Now you will create a `.env` file with connection info (addresses and secrets) for the Netlify function to be able to reach both the local backend and your Astra DB's GraphQL endpoint.
+
+<-- TODO: replace with astra-cli usage -->
+
+Paste this in the console (which will create and open a stub for the `.env`):
 ```shell
-CTRL-C 
+echo "ASTRA_DB_APPLICATION_TOKEN=\"AstraCS:...\"" > .env
+echo "ASTRA_DB_GRAPHQL_URL=\"https://....apps.astra.datastax.com/api/graphql/intrographql\"" >> .env
+cat .local-backend.env >> .env
+gp open .env
 ```
 
-#### ✅ Now execute the following command to configure the database
- Note that this does require Node 15 and NPM 7 to work.  You can install a node version manager like `nvm` or `n` to use multiple versions on your system. **If you are using GitPod this should simply work since we pre-installed all of the dependcies for you.**
+In the editor, paste your `AstraCS:...` Astra DB Admin token and the GraphQL URL (the one found on the second Playground tab, ending in `.../intrographql`)
+in the first two lines of the `.env`.
 
-```shell
-npm exec astra-setup workshops intrographql
-```
+The credentials are now all set up. Here is how the `.env` might look like:
 
-You will be asked to: **Please paste the Database Admin Token here** so copy over the Token you saved earlier, and hit enter. It will start with AstraCS:cvdPRONUrUUT:...
-
-![Screen Shot 2021-09-13 at 9 42 46 PM](https://user-images.githubusercontent.com/23346205/133180758-ff2a9cc9-73a2-4602-8e41-d78fada9932b.png)
-
-This will add a set of envrionment variables for database authentication to your `.env` file at the root of **`workshop-intro-to-graphql/graphql-client-examples`**. It should look something like this.
-
-![Screen Shot 2021-09-13 at 9 45 41 PM](https://user-images.githubusercontent.com/23346205/133181009-928f4172-a687-43eb-b9ee-8c3d2e7483dd.png)
-
-> If you have multiple keyspaces, chances are the ending of the entry for
-> `ASTRA_GRAPHQL_ENDPOINT` will have them all in a comma-separated list
-> (e.g. `https://1960a[...]api/graphql/ks1,ks2,intrographql,ks3`).
-> This is due to a known bug in the `astra-setup` tool.
-> In this case, please manually correct the entry to simply
-> `[...]api/graphql/intrographql`.
+![Sample dot-env file](tutorial/images/dot-env.png)
 
 #### ✅ Start your React app back up with the following command
 ```shell
@@ -480,7 +477,7 @@ netlify dev
 #### ✅ Step 9b: Verify data load
 At this point your app should be running with a bunch of data displayed in the **`Shows`**, **`Genres,`** and **`ReferenceList`** sections, but notice the **`ShowsByName`** section displays **"Error :("**
 
-![Screen Shot 2021-09-13 at 10 00 26 PM](tutorial/images/error_shows_by_name.png?raw=true)
+![Error in Shows by name](tutorial/images/error_shows_by_name.png)
 
 #### Can you figure out what's going on here?
 Let's break this down.

@@ -10,7 +10,7 @@ exports.handler = async function (event) {
         }
     }
   ` 
-  const url = process.env.ASTRA_GRAPHQL_ENDPOINT
+  const url = process.env.ASTRA_DB_GRAPHQL_URL
   const response = await fetch(url, {
     method: 'POST',
     headers: {
