@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import graphql_logo from './graphql_logo.svg';
 import './App.css';
 import Shows from './components/Shows';
 import Genres from './components/Genres';
@@ -9,18 +9,14 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+        <a href="https://graphql.org/" rel="noreferrer" target="_blank">
+          <img src={graphql_logo} className="App-logo" alt="logo" />
         </a>
+        <p className="App-subtitle">
+          <a href="https://github.com/datastaxdevs/workshop-intro-to-graphql#readme" rel="noreferrer" target="_blank">
+            Intro to GraphQL by DataStax Developers
+          </a>
+        </p>
         <h1>Shows(Local)</h1>
         <Shows />
         <h1>Genres(Local)</h1>

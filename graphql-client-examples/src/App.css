@@ -3,13 +3,14 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  margin-top:25px;
+  height: 10vmin;
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 50s linear;
   }
 }
 
@@ -22,6 +23,11 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App-subtitle a {
+  color: gold;
+  font-style: italic;
 }
 
 .App-link {
