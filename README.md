@@ -107,7 +107,7 @@ We will then grade the submissions: expect an email in a few days!
 
 
 
-## 1. Login or Register to AstraDB and create database
+## 1. Login or Register to Astra DB and create database
 
 _**`ASTRA DB`** is the simplest way to run Cassandra with zero operations at all - just push the button and get your cluster. No credit card required, 40M read/write operations and about 80GB storage monthly for free - sufficient to run small production workloads. If you end your credits the databases will pause, no charge_
 
@@ -163,7 +163,7 @@ This will bootstrap your demo environment. Be patient, it will take a couple min
 
 > **Note**: during loading of the Gitpod environment, a new tab will be tentatively opened
 > with an URL such as `https://8080-datastaxdev-[...].gitpod.io/graphiql`.
-> Please **CHECK YOUR POPUP BLOCKER** and allow it before continuing!
+> Please **CHECK YOUR POPUP BLOCKER** and allow it before continuing: this will be your GraphiQL interface!
 
 ## 4. Experiment with GraphiQL
 It just so happens that [The Netflix DGS framework](https://netflix.github.io/dgs/getting-started/) comes with GraphiQL already integrated and ready for use. This is a wonderful tool you can use to explore graphQL queries and mutations. Let's experiment with this now!
@@ -231,9 +231,152 @@ query ShowsAndGenres {
 
 ![Screen Shot 2021-09-14 at 10 56 10 AM](https://user-images.githubusercontent.com/23346205/133281572-9f42d927-639b-4993-aefe-18c700a1575a.png)
 
+## 5. Experiment with Astra DB's GraphQL Playground
 
-## 5. Start up React
-Ok, so we've played a bit with some graphQL queries on the backend and looked at how a basic schema works, but how do we hook this into our React JS app?
+Ok, let's take this a step further and prepare the data layer for our app.
+At this point you should have already [created your Astra DB database](#1-login-or-register-to-astradb-and-create-database).
+Follow the instructions below to launch the **GraphQL Playground** provided in **Astra DB**:
+
+#### ✅  Step 5a: Open GraphQL Playground:
+
+1. Click on the "workshops" database on the left (expanding the list if needed)
+2. Click `Connect` TAB
+3. Click the `APIs`  connection method
+4. Make sure `GraphQL API` is selected
+5. Locate the link to your GraphQL Playground in the text
+
+![image](tutorial/images/open-playground-2.png?raw=true)
+
+<details>
+<summary><strong>Click here if you are using the "New Astra Experience" UI</strong></summary>
+
+![image](tutorial/images/open-playground-2-wh.png)
+
+</details>
+
+
+#### ✅  Step 5b: In GraphQL Playground, **Populate HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below (including the `AstraCS:` part)
+✅ Ensure you have the **`graphql-schema`** tab selected for this step
+
+> Note: the GraphQL Playground starts with a ready-to-use _temporary token_ as the `x-cassandra-token` header. But we want the queries run in the Playground
+> to be identical to those that the Netlify functions will run from code, so **please replace the token with your DB token as instructed**.
+
+![image](tutorial/images/graphql-playground.png?raw=true)
+
+#### ✅  Step 5c: In GraphQL Playground, create a table with the following mutation, making sure to replace `intrographql` if you used a different keyspace name:
+
+- Copy the following mutation on the left panel
+
+```GraphQL
+mutation {
+  reference_list: createTable(
+    keyspaceName:"intrographql",
+    tableName:"reference_list",
+    ifNotExists:true
+    partitionKeys: [ 
+      { name: "label", type: {basic: TEXT} }
+    ]
+    clusteringKeys: [
+      { name: "value", type: {basic: TEXT}, order: "ASC" }
+    ]
+  )
+}
+```
+
+Click on the arrow in the middle of the screen to execute the query.
+
+![image](tutorial/images/playground-1.png?raw=true)
+
+## 6. Insert data to DB using the GraphQL Playground
+
+#### ✅  Step 6a: In graphQL playground, switch to the second Playground tab (`graphql`). Edit the ending of the URL _shown within the Playground page_ from `system` to the keyspace name `intrographql`:
+
+![GraphQL URL ending](tutorial/images/graphql-url-ending.png)
+
+#### ✅  Step 6b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your DB token as shown below _(Note: you did this for the `graphql-schema` tab, now repeat for the `graphql` tab!)_
+
+![image](tutorial/images/graphql-playground-2.png?raw=true)
+
+#### ✅  Step 6c: In GraphQL Playground, populate the `reference_list` table with the following values
+
+- Copy the following mutation on the left panel
+
+```GraphQL
+mutation insertGenres {
+  action: insertreference_list(value: {label:"genre", value:"Action"}) {
+    value{value}
+  }
+  anime: insertreference_list(value: {label:"genre", value:"Anime"}) {
+     value{value}
+  }
+  award: insertreference_list(value: {label:"genre", value:"Award-Winning"}) {
+     value{value}
+  }
+  children: insertreference_list(value: {label:"genre", value:"Children & Family"}) {
+     value{value}
+  }
+  comedies: insertreference_list(value: {label:"genre", value:"Comedies"}) {
+     value{value}
+  }
+  documentaries: insertreference_list(value: {label:"genre", value:"Documentaries"}) {
+     value{value}
+  }
+  drama: insertreference_list(value: {label:"genre", value:"Dramas"}) {
+     value{value}
+  }
+  fantasy: insertreference_list(value: {label:"genre", value:"Fantasy"}) {
+     value{value}
+  }
+  french: insertreference_list(value: {label:"genre", value:"French"}) {
+     value{value}
+  }
+  horror: insertreference_list(value: {label:"genre", value:"Horror"}) {
+     value{value}
+  }
+  independent: insertreference_list(value: {label:"genre", value:"Independent"}) {
+     value{value}
+  }
+  music: insertreference_list(value: {label:"genre", value:"Music & Musicals"}) {
+     value{value}
+  }
+  romance: insertreference_list(value: {label:"genre", value:"Romance"}) {
+     value{value}
+  }
+  scifi: insertreference_list(value: {label:"genre", value:"Sci-Fi"}) {
+     value{value}
+  }
+  thriller: insertreference_list(value: {label:"genre", value:"Thriller"}) {
+     value{value}
+  }  
+}
+```
+
+Click on the arrow in the middle of the screen to execute the query.
+
+## 7. Retrieve values from DB using the GraphQL Playground
+
+#### ✅  Step 7a: In GraphQL Playground (staying on the `graphql` tab), list values from the table with the following query:
+
+```yaml
+query getAllGenre {
+    reference_list (value: {label:"genre"}) {
+      values {
+      	value
+      }
+    }
+}
+```
+
+*👁️ Expected output*
+![image](tutorial/images/graphql-playground-3.png?raw=true)
+
+## 8. Start up React
+
+So far we have executed GraphQL queries and mutations by hand from specific UIs.
+Now it's time to start the React client app and query the GraphQL endpoints from it!
+
+> "Endpoints", two of them. Each GraphQL server exposes a single endpoint for everything,
+> but remember this app will query both the local DGS app and the Astra DB server!
 
 #### First, we need to run a couple commands to get things setup
 In your **`GitPod`** IDE navigate to the "Client" terminal
@@ -254,6 +397,8 @@ netlify dev
 ```
 
 This will start the **React/JS** application and display results from both the **`Shows`** and **`Genres`** **graphQL** queries and endpoints we were just experimenting with.
+
+You should see Gitpod's mini-browser opening up by itself and showing the client application wihtin Gitpod.
 
 #### Compare javascript code to our graphQL queries from above
 If you take a look at both **`getShowsBackend.js`** and **`getGenresBackend.js`** located in **`graphql-client-examples/functions`** you should notice that both use the **same exact** **graphQL** queries that we used above.
@@ -334,143 +479,8 @@ return gqlResult.data.genres.map(({ value }) => (
   ));
 ```
 
-## 6. Hook up the data layer with Astra DB
-Ok, let's take this a step further and hook our app up to a data layer. As this point you should have already [created your Astra DB database](#1-login-or-register-to-astradb-and-create-database).
-Follow the instructions below to launch the **GraphQL Playground** provided in **Astra**:
+## 9. Hook the database up to the React client app
 
-#### ✅  Step 6a: Open GraphQL Playground:
-
-1. Click on the "workshops" database on the left (expanding the list if needed)
-2. Click `Connect` TAB
-3. Click the `APIs`  connection method
-4. Make sure `GraphQL API` is selected
-5. Locate the link to your GraphQL Playground in the text
-
-![image](tutorial/images/open-playground-2.png?raw=true)
-
-<details>
-<summary><strong>Click here if you are using the "New Astra Experience" UI</strong></summary>
-
-![image](tutorial/images/open-playground-2-wh.png)
-
-</details>
-
-
-#### ✅  Step 6b: In GraphQL Playground, **Populate HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below (including the `AstraCS:` part)
-✅ Ensure you have the **`graphql-schema`** tab selected for this step
-
-> Note: the GraphQL Playground starts with a ready-to-use _temporary token_ as the `x-cassandra-token` header. But we want the queries run in the Playground
-> to be identical to those that the Netlify functions will run from code, so **please replace the token with your DB token as instructed**.
-
-![image](tutorial/images/graphql-playground.png?raw=true)
-
-#### ✅  Step 6c: In GraphQL Playground, create a table with the following mutation, making sure to replace `intrographql` if you used a different keyspace name:
-
-- Copy the following mutation on the left panel
-
-```GraphQL
-mutation {
-  reference_list: createTable(
-    keyspaceName:"intrographql",
-    tableName:"reference_list",
-    ifNotExists:true
-    partitionKeys: [ 
-      { name: "label", type: {basic: TEXT} }
-    ]
-    clusteringKeys: [
-      { name: "value", type: {basic: TEXT}, order: "ASC" }
-    ]
-  )
-}
-```
-* Use the arrow in the middle of the screen to execute the query
-
-![image](tutorial/images/playground-1.png?raw=true)
-
-## 7. Insert data in the Table with GraphQL
-
-#### ✅  Step 7a: In graphQL playground, switch to the second Playground tab (`graphql`). Edit the ending of the URL _shown within the Playground page_ from `system` to the keyspace name `intrographql`:
-
-![GraphQL URL ending](tutorial/images/graphql-url-ending.png)
-
-#### ✅  Step 7b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your DB token as shown below _(Note: you did this for the `graphql-schema` tab, now repeat for the `graphql` tab!)_
-
-![image](tutorial/images/graphql-playground-2.png?raw=true)
-
-#### ✅  Step 7c: In GraphQL Playground,populate the `reference_list` table with the following values
-
-- Copy the following mutation on the left panel
-
-```GraphQL
-mutation insertGenres {
-  action: insertreference_list(value: {label:"genre", value:"Action"}) {
-    value{value}
-  }
-  anime: insertreference_list(value: {label:"genre", value:"Anime"}) {
-     value{value}
-  }
-  award: insertreference_list(value: {label:"genre", value:"Award-Winning"}) {
-     value{value}
-  }
-  children: insertreference_list(value: {label:"genre", value:"Children & Family"}) {
-     value{value}
-  }
-  comedies: insertreference_list(value: {label:"genre", value:"Comedies"}) {
-     value{value}
-  }
-  documentaries: insertreference_list(value: {label:"genre", value:"Documentaries"}) {
-     value{value}
-  }
-  drama: insertreference_list(value: {label:"genre", value:"Dramas"}) {
-     value{value}
-  }
-  fantasy: insertreference_list(value: {label:"genre", value:"Fantasy"}) {
-     value{value}
-  }
-  french: insertreference_list(value: {label:"genre", value:"French"}) {
-     value{value}
-  }
-  horror: insertreference_list(value: {label:"genre", value:"Horror"}) {
-     value{value}
-  }
-  independent: insertreference_list(value: {label:"genre", value:"Independent"}) {
-     value{value}
-  }
-  music: insertreference_list(value: {label:"genre", value:"Music & Musicals"}) {
-     value{value}
-  }
-  romance: insertreference_list(value: {label:"genre", value:"Romance"}) {
-     value{value}
-  }
-  scifi: insertreference_list(value: {label:"genre", value:"Sci-Fi"}) {
-     value{value}
-  }
-  thriller: insertreference_list(value: {label:"genre", value:"Thriller"}) {
-     value{value}
-  }  
-}
-```
-
-* Use the arrow in the middle of the screen to execute the query
-
-## 8. Retrieving list of values
-
-#### ✅  Step 8a: In GraphQL Playground, not changing tab (yeah) list values from the table with the following query.
-
-```yaml
-query getAllGenre {
-    reference_list (value: {label:"genre"}) {
-      values {
-      	value
-      }
-    }
-}
-```
-
-*👁️ Expected output*
-![image](tutorial/images/graphql-playground-3.png?raw=true)
-
-## 9. Hook the database up to our React/JS app
 So, you just created a table, inserted (mutated) some rows into the table, and then retrieved all of the genres with the "getAllGenre" query using the GraphQL Playground provided as part of Astra DB. Now, let's hook our client up to our Astra DB graphQL endpiont and render the results to our website with React.
 
 #### ✅ Step 9a: Configure database credentials
