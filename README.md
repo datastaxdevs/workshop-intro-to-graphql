@@ -384,14 +384,14 @@ In your **`GitPod`** IDE navigate to the "Client" terminal
 and make sure you are in the **`workshop-intro-to-graphql/graphql-client-examples`** directory.
 **This is where you'll be running the nodejs/React app.**
 
-#### ✅  Execute the following command
+#### ✅ Step 8a: Execute the following command
 ```shell
 npm install -g netlify-cli
 ```
 
 This will install the **Netlify CLI** (command line interface) which our **React/JS** app uses in conjunction with the serverless functions we've setup to talk to our **graphQL** endpoints.
 
-#### ✅  Then, execute
+#### ✅  Step 8b: Then, execute
 ```shell
 netlify dev
 ```
@@ -507,12 +507,12 @@ The credentials are now all set up. Here is how the `.env` might look like (as a
 
 ![Sample dot-env file](tutorial/images/dot-env.png)
 
-#### ✅ Start your React app back up with the following command
+#### ✅ Step 9b: Start your React app back up with the following command
 ```shell
 netlify dev
 ```
 
-#### ✅ Step 9b: Verify data load
+#### ✅ Step 9c: Verify data load
 At this point your app should be running with a bunch of data displayed in the **`Shows`**, **`Genres,`** and **`ReferenceList`** sections, but notice the **`ShowsByName`** section displays **"Error :("**
 
 ![Error in Shows by name](tutorial/images/error_shows_by_name.png)
@@ -539,7 +539,7 @@ exports.handler = async function (event) {
   `
 ```
 
-#### ✅  Test this query in the GraphQL Playground **`graphQL`** tab
+#### ✅ Step 9d: Test this query in the GraphQL Playground **`graphQL`** tab
 Copy this into the playground and press the _"play"_ button to execute the query. **NOTE, you can simply append the query to the end of the list and then choose the query you wish to execute when you hit the "play" button.**
 
 ```GraphQL
@@ -560,7 +560,7 @@ Notice what happened here. We have a validation error because there is no schema
 
 ![Screen Shot 2021-09-13 at 10 25 31 PM](https://user-images.githubusercontent.com/23346205/133184395-5436558a-bb80-4b45-a852-193cfbef2ba8.png)
 
-#### ✅ Step 9c: Create the **`ShowsByName`** table with a graphQL mutation to fix the app
+#### ✅ Step 9e: Create the **`ShowsByName`** table with a graphQL mutation to fix the app
 Ok, so let's fix up the schema issue to resolve the error.
 
 #### ✅ Execute the following mutation in the **`graph-schema`** tab of the GraphQL Playground
@@ -586,7 +586,7 @@ Once executed you should see a result like this
 
 ![Screen Shot 2021-09-13 at 10 34 34 PM](https://user-images.githubusercontent.com/23346205/133185415-72ed5950-2b36-44b4-96d5-a64456252d71.png)
 
-#### ✅ Add some data
+#### ✅ Step 9f: Add some data
 Now, go back to the **`graphql`** tab of the GraphQL Playground and add the following mutation
 ```GraphQL
 mutation insertShows {
@@ -611,7 +611,7 @@ mutation insertShows {
 
 ![Screen Shot 2021-09-13 at 10 39 58 PM](https://user-images.githubusercontent.com/23346205/133185982-95f4e84b-242e-4317-9605-e8585caa8e8e.png)
 
-#### ✅ Finally, refresh your React app
+#### ✅ Step 9g: Finally, refresh your React app
 Notice this no longer displays **"Error :("**, but now correctly displays the data you just inserted (mutated). It might be fun to add some of your own data to this schema and refresh your page.
 
 ![Screen Shot 2021-09-13 at 10 41 03 PM](https://user-images.githubusercontent.com/23346205/133186039-9c5a06a1-6ac9-47c5-a984-c8809683636f.png)
