@@ -123,15 +123,8 @@ Leveraging [Database creation guide](https://awesome-astra.github.io/docs/pages/
 
 > **ℹ️ Note:** If you already have a database `workshops`, simply add a keyspace `intrographql` using the `Add Keyspace` button on the bottom right hand corner of the DB Dashboard page. You may have to "Resume" the database first in case it is in "hibernated" state.
 
-While the database is being created, you will also get a **Security token**: 
-save it somewhere safe, you will need it later to connect to the GraphQL endpoint for your DB
-(in particular the string starting with `AstraCS:...`.)
-
-> **⚠️ Important**
-> ```
-> The instructor will show the token creation on screen,
-> but will then destroy it immediately for security reasons.
-> ```
+While the database is being created, you will also get a **Security token** (needed to authenticate with your database and start using it):
+**please IGNORE THIS ONE, as we will be soon creating a new more powerful token for today**.
 
 The status will change from `Pending` to `Active` when the database is ready, this will only take 2-3 minutes.
 
@@ -139,12 +132,14 @@ The status will change from `Pending` to `Active` when the database is ready, th
 
 ## 2. Create a security token
 
-> Note: you should have a token already, in which case _skip to step 3_.
-> In case you don't (e.g. you added a keyspace to a pre-existing database), read on.
+> Note: this step is very important, as the token generated automatically for you with
+> the database lacks some permissions we'll use in the following.
 
-[Create a token for your app](https://awesome-astra.github.io/docs/pages/astra/create-token/#c-procedure), _using the "Database Administrator" role_.
-Keep it handy for later use (best to download the CSV token, as the values
-will not be visible afterward). The token you'll need looks like `AstraCS:KDfdKeNREyWQvDpDrBqwBsUB:ec80667c....`
+[Create a token for your app](https://awesome-astra.github.io/docs/pages/astra/create-token/#c-procedure), _using the **"Database Administrator"** role_.
+Keep it handy for later use (best to download it in CSV format, as the values
+will not be visible afterward).
+This will provide authentication later when interacting with the database.
+Today, in particular, we will need the string labeled "token" (the one starting with `AstraCS:...`).
 
 > **⚠️ Important**
 > ```
@@ -483,36 +478,46 @@ return gqlResult.data.genres.map(({ value }) => (
 
 So, you just created a table, inserted (mutated) some rows into the table, and then retrieved all of the genres with the "getAllGenre" query using the GraphQL Playground provided as part of Astra DB. Now, let's hook our client up to our Astra DB graphQL endpiont and render the results to our website with React.
 
-#### ✅ Step 9a: Configure database credentials
+#### ✅ Step 9a: Initialize Astra CLI
 In the **`GitPod`** IDE, click on the "Client" terminal to make it active, hit `Ctrl-C` to stop the running client, if any, and make sure you are in the **`workshop-intro-to-graphql/graphql-client-examples`** directory.
 
 Now you will create a `.env` file with connection info (addresses and secrets) for the Netlify function to be able to reach both the local backend and your Astra DB's GraphQL endpoint.
+You will use the Astra command-line interface to prepare a dot-env file for you; then you will complete it by adding a line defining the address of the local backend (i.e. the DGS locally-running GraphQL API).
 
-<!--- TODO: replace with astra-cli usage --->
+Run the following command and provide your **DB Administrator** token string (starting with `AstraCS:...`) when prompted:
 
-Paste this in the console (which will create and open a stub for the `.env`):
-```shell
-echo "ASTRA_DB_APPLICATION_TOKEN=\"AstraCS:...\"" > .env
-echo "ASTRA_DB_GRAPHQL_URL=\"https://....apps.astra.datastax.com/api/graphql/intrographql\"" >> .env
+```
+astra setup
+```
+
+#### ✅ Step 9b: Configure database credentials
+
+Once you get a "Configuration has been saved" confirmation, proceed with:
+
+```
+astra db create-dotenv workshops -k intrographql
 cat .local-backend.env >> .env
 gp open .env
 ```
 
-In the editor, fill the definitions in the `.env` with:
+The credentials are now all set up: your dot-env file should be now shown in the editor for you to check its contents.
+You will see several lines pertaining to Astra DB (not all of which will be used by today's client)
+and, at the end, a single setting about the Java GraphQL API you tested earlier.
 
-- your `AstraCS:...` Astra DB token string as `ASTRA_DB_APPLICATION_TOKEN`;
-- the URL to your GraphQL (as found on the second Playground tab, ending in `.../intrographql`) as `ASTRA_DB_GRAPHQL_URL`.
-  
-The credentials are now all set up. Here is how the `.env` might look like (as a reference, check out the provided `.env.sample`):
+Here is how the `.env` might look like (as a reference, check out the provided `.env.sample`):
 
-![Sample dot-env file](tutorial/images/dot-env.png)
+![Sample dot-env file](tutorial/images/dot-env-2.png)
 
-#### ✅ Step 9b: Start your React app back up with the following command
+> If you are preparing the file manually (i.e. as opposed to using the `astra-cli` tool), be aware that the only
+> variables needed by the React client are: `ASTRA_DB_APPLICATION_TOKEN`, `ASTRA_DB_GRAPHQL_URL`
+> and `JAVA_GRAPHQL_ENDPOINT`.
+
+#### ✅ Step 9c: Start your React app back up with the following command
 ```shell
 netlify dev
 ```
 
-#### ✅ Step 9c: Verify data load
+#### ✅ Step 9d: Verify data load
 At this point your app should be running with a bunch of data displayed in the **`Shows`**, **`Genres,`** and **`ReferenceList`** sections, but notice the **`ShowsByName`** section displays **"Error :("**
 
 ![Error in Shows by name](tutorial/images/error_shows_by_name.png)
@@ -539,7 +544,7 @@ exports.handler = async function (event) {
   `
 ```
 
-#### ✅ Step 9d: Test this query in the GraphQL Playground **`graphQL`** tab
+#### ✅ Step 9e: Test this query in the GraphQL Playground **`graphQL`** tab
 Copy this into the playground and press the _"play"_ button to execute the query. **NOTE, you can simply append the query to the end of the list and then choose the query you wish to execute when you hit the "play" button.**
 
 ```GraphQL
@@ -560,7 +565,7 @@ Notice what happened here. We have a validation error because there is no schema
 
 ![Screen Shot 2021-09-13 at 10 25 31 PM](https://user-images.githubusercontent.com/23346205/133184395-5436558a-bb80-4b45-a852-193cfbef2ba8.png)
 
-#### ✅ Step 9e: Create the **`ShowsByName`** table with a graphQL mutation to fix the app
+#### ✅ Step 9f: Create the **`ShowsByName`** table with a graphQL mutation to fix the app
 Ok, so let's fix up the schema issue to resolve the error.
 
 #### ✅ Execute the following mutation in the **`graph-schema`** tab of the GraphQL Playground
@@ -586,7 +591,7 @@ Once executed you should see a result like this
 
 ![Screen Shot 2021-09-13 at 10 34 34 PM](https://user-images.githubusercontent.com/23346205/133185415-72ed5950-2b36-44b4-96d5-a64456252d71.png)
 
-#### ✅ Step 9f: Add some data
+#### ✅ Step 9g: Add some data
 Now, go back to the **`graphql`** tab of the GraphQL Playground and add the following mutation
 ```GraphQL
 mutation insertShows {
@@ -611,7 +616,7 @@ mutation insertShows {
 
 ![Screen Shot 2021-09-13 at 10 39 58 PM](https://user-images.githubusercontent.com/23346205/133185982-95f4e84b-242e-4317-9605-e8585caa8e8e.png)
 
-#### ✅ Step 9g: Finally, refresh your React app
+#### ✅ Step 9h: Finally, refresh your React app
 Notice this no longer displays **"Error :("**, but now correctly displays the data you just inserted (mutated). It might be fun to add some of your own data to this schema and refresh your page.
 
 ![Screen Shot 2021-09-13 at 10 41 03 PM](https://user-images.githubusercontent.com/23346205/133186039-9c5a06a1-6ac9-47c5-a984-c8809683636f.png)

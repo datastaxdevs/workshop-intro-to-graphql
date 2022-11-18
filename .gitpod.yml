@@ -1,19 +1,25 @@
+# We install astra-cli using the Node terminal, so that we are sure to
+# source astra-init there and have astra available.
+# On the other hand, we need to make sure mvn clean install happens cleanly
+# after java 17 is installed, so the sdk install is on the Java terminal.
+# This *should* work without nondeterministic ordering issues.
 tasks:
   - name: cors-host-config
     before: bash hostURL.sh
     command: gp open README.md
   - name: graphQL-Client
     before: |
+      # astra-cli
+      printf 'export PATH="$HOME%s:$PATH"\n' "/.astra/cli" >> $HOME/.bashrc
+      printf 'unset JAVA_TOOL_OPTIONS\n' >> $HOME/.bashrc
+      curl -Ls "https://dtsx.io/get-astra-cli-java" | bash >> ./install.log
+      # node dependencies
       cd graphql-client-examples
       nvm install 16.13.0
       npm install -g npm@latest
       npm install astra-setup
       npm install -g netlify-cli
       npm install
-      # astra-cli
-      printf 'export PATH="$HOME%s:$PATH"\n' "/.astra/cli" >> $HOME/.bashrc
-      printf 'unset JAVA_TOOL_OPTIONS\n' >> $HOME/.bashrc
-      curl -Ls "https://dtsx.io/get-astra-cli-java" | bash >> ./install.log
     command: |
       source /home/gitpod/.astra/cli/astra-init.sh
       clear
@@ -22,8 +28,8 @@ tasks:
     openMode: split-right
     init: |
       # REMOVE USER VALIDATION -Y ON JAVA 17 INSTALLATION
-      sed -i '1,$s/sdkman_auto_answer=false/sdkman_auto_answer=true/' /home/gitpod/.sdkman/etc/config 
-      sed -i '1,$s/sdkman_selfupdate_enable=true/sdkman_selfupdate_enable=false/' /home/gitpod/.sdkman/etc/config 
+      sed -i '1,$s/sdkman_auto_answer=false/sdkman_auto_answer=true/' /home/gitpod/.sdkman/etc/config
+      sed -i '1,$s/sdkman_selfupdate_enable=true/sdkman_selfupdate_enable=false/' /home/gitpod/.sdkman/etc/config
       # JAVA17 INSTALL
       sdk install java
     before: |
