@@ -163,6 +163,9 @@ This will bootstrap your demo environment. Be patient, it will take a couple min
 ## 4. Experiment with GraphiQL
 It just so happens that [The Netflix DGS framework](https://netflix.github.io/dgs/getting-started/) comes with GraphiQL already integrated and ready for use. This is a wonderful tool you can use to explore graphQL queries and mutations. Let's experiment with this now!
 
+> _Note:_ the GraphiQL should be open already in a new tab for you; in case it isn't for some reason,
+> run this command in a Gitpod console and manually point a new tab to the URL it prints:```echo `gp url 8080`/graphiql```.
+
 #### Here's the schema defined in our java backend per `graphql-backend-examples/src/main/resources/schema/schema.graphqls`
 
 ```GraphQL
@@ -394,6 +397,9 @@ netlify dev
 This will start the **React/JS** application and display results from both the **`Shows`** and **`Genres`** **graphQL** queries and endpoints we were just experimenting with.
 
 You should see Gitpod's mini-browser opening up by itself and showing the client application wihtin Gitpod.
+
+> _Note:_ the client, at this point, should be opened in the mini-browser within Gitpod; to open it manually,
+> run this command in a Gitpod console and point a new tab to the URL it prints:```echo `gp url 8888` ```.
 
 #### Compare javascript code to our graphQL queries from above
 If you take a look at both **`getShowsBackend.js`** and **`getGenresBackend.js`** located in **`graphql-client-examples/functions`** you should notice that both use the **same exact** **graphQL** queries that we used above.
