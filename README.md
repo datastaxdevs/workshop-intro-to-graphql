@@ -124,7 +124,7 @@ Leveraging [Database creation guide](https://awesome-astra.github.io/docs/pages/
 > **ℹ️ Note:** If you already have a database `workshops`, simply add a keyspace `intrographql` using the `Add Keyspace` button on the bottom right hand corner of the DB Dashboard page. You may have to "Resume" the database first in case it is in "hibernated" state.
 
 While the database is being created, you will also get a **Security token** (needed to authenticate with your database and start using it):
-**please IGNORE THIS ONE, as we will be soon creating a new more powerful token for today**.
+**please IGNORE THIS ONE, as we will be soon creating a new, more powerful token for today**.
 
 The status will change from `Pending` to `Active` when the database is ready, this will only take 2-3 minutes.
 
@@ -429,7 +429,7 @@ Take a look at **`Shows.js`** and **`Genres.js`** located in **`graphql-client-e
   const [gqlResult, setGqlResult] = useState(null)
 ```
 
-to receive the responseBody from from our **graphQL** queries, set the **React** state, and inject the values dyanmically into the DOM. Check out the following javascript snippet from **`Shows.js`**.
+to receive the responseBody from from our **graphQL** queries, set the **React** state, and inject the values dynamically into the DOM. Check out the following javascript snippet from **`Shows.js`**.
 
 ```javascript
 // Asynchronously fetch any "shows" graphQL data from the Java backend
@@ -476,7 +476,10 @@ return gqlResult.data.genres.map(({ value }) => (
 
 ## 9. Hook the database up to the React client app
 
-So, you just created a table, inserted (mutated) some rows into the table, and then retrieved all of the genres with the "getAllGenre" query using the GraphQL Playground provided as part of Astra DB. Now, let's hook our client up to our Astra DB graphQL endpiont and render the results to our website with React.
+The next step is to make the client able to retrieve the genres and the shows
+from the database, by querying Astra DB's GraphQL API. To achieve this,
+it's time to provide connection details (addresses, secrets) to the
+serverless Netlify functions which will back the React client.
 
 #### ✅ Step 9a: Initialize Astra CLI
 In the **`GitPod`** IDE, click on the "Client" terminal to make it active, hit `Ctrl-C` to stop the running client, if any, and make sure you are in the **`workshop-intro-to-graphql/graphql-client-examples`** directory.
