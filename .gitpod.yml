@@ -26,13 +26,14 @@ tasks:
       echo -e "\n*** workshop-intro-to-graphql gitpod ready - LET'S DO THIS! ***\n"
   - name: graphQL-Backend
     openMode: split-right
-    init: |
+    before: |
       # REMOVE USER VALIDATION -Y ON JAVA 17 INSTALLATION
       sed -i '1,$s/sdkman_auto_answer=false/sdkman_auto_answer=true/' /home/gitpod/.sdkman/etc/config
       sed -i '1,$s/sdkman_selfupdate_enable=true/sdkman_selfupdate_enable=false/' /home/gitpod/.sdkman/etc/config
       # JAVA17 INSTALL
       sdk install java
-    before: |
+    init: |
+      # build the Java app
       cd graphql-backend-examples
       mvn clean install
     command: |
