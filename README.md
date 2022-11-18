@@ -18,7 +18,7 @@ The materials have been built by the DataStax developer advocates team.
 
 ## 🎯 Objectives
 * An overview of what GraphQL is and what makes it cool
-* What differs between GraphQL, REST, other APIs, and their pros/cons
+* What differs between GraphQL and other APIs (such as REST), including their pros/cons
 * Hands-on examples of GraphQL queries and mutations
 * How to build GraphQL APIs for mobile and web applications
 * Setting up your Astra DB to store application data via GraphQL
@@ -27,7 +27,7 @@ The materials have been built by the DataStax developer advocates team.
 
 <p/>
 <details>
-<summary><b> 1️⃣ Can I run this workshop on my computer?</b></summary>
+<summary><b> 1️⃣ Can I run the code for this workshop on my local computer instead of using Gitpod?</b></summary>
 <hr>
 <p>There is nothing preventing you from running the workshop on your own machine. If you do so, you will need the following:
 <ol>
@@ -43,7 +43,7 @@ You will have to adapt commands and paths based on your environment (including d
 <hr>
 <ul>
 <li>You will need a github account</li>
-<li>You will need an Astra DB account, but we'll work through that in the exercises</li>
+<li>You will need an Astra DB account, but we'll cover that in the exercises</li>
 </ul>
 </p>
 </details>
@@ -109,7 +109,7 @@ We will then grade the submissions: expect an email in a few days!
 
 ## 1. Login or Register to Astra DB and create database
 
-_**`ASTRA DB`** is the simplest way to run Cassandra with zero operations at all - just push the button and get your cluster. No credit card required, 40M read/write operations and about 80GB storage monthly for free - sufficient to run small production workloads. If you end your credits the databases will pause, no charge_
+_**`ASTRA DB`** is the simplest way to run Cassandra with zero operations at all - just push the button and get your cluster. No credit card required, 40M read/write operations and about 80GB storage monthly for free - sufficient to run small production workloads. If you use up your credits the databases will pause, no charge, and you will be given the option to upgrade to a higher tier._
 
 Leveraging [Database creation guide](https://awesome-astra.github.io/docs/pages/astra/create-instance/#c-procedure) create a database. *Right-Click the following button* with *Open in a new TAB.*
 
@@ -119,21 +119,21 @@ Leveraging [Database creation guide](https://awesome-astra.github.io/docs/pages/
 |---|---|
 |**Database Name**| `workshops`|
 |**Keyspace Name**| `intrographql`|
-|**Regions**| Select `GOOGLE CLOUD`, then an Area close to you, then a region with no LOCKER 🔒 icons: those are the region accessible to the Free Tier.
+|**Regions**| Select `GOOGLE CLOUD`, then an Area close to you, then a region with no LOCK 🔒 icons: the LOCKed regions are the region not accessible to the Free Tier.
 
 > **ℹ️ Note:** If you already have a database `workshops`, simply add a keyspace `intrographql` using the `Add Keyspace` button on the bottom right hand corner of the DB Dashboard page. You may have to "Resume" the database first in case it is in "hibernated" state.
 
 While the database is being created, you will also get a **Security token** (needed to authenticate with your database and start using it):
 **please IGNORE THIS ONE, as we will be soon creating a new, more powerful token for today**.
 
-The status will change from `Pending` to `Active` when the database is ready, this will only take 2-3 minutes.
+The status will change from `Pending` to `Active` when the database is ready, this usually only takes 2-3 minutes.
 
 
 
 ## 2. Create a security token
 
 > Note: this step is very important, as the token generated automatically for you with
-> the database lacks some permissions we'll use in the following.
+> the database lacks some permissions we'll use in the workshop.
 
 [Create a token for your app](https://awesome-astra.github.io/docs/pages/astra/create-token/#c-procedure), _using the **"Database Administrator"** role_.
 Keep it handy for later use (best to download it in CSV format, as the values
@@ -149,12 +149,12 @@ Today, in particular, we will need the string labeled "token" (the one starting 
 
 ## 3. Launch Gitpod
 
-[Gitpod](https://www.gitpod.io/) is an 100% online IDE based on [VS Code](https://github.com/gitpod-io/vscode/blob/gp-code/LICENSE.txt?lang=en-US). To initialize your environment simply click on the button below _(CTRL + Click to open in new tab)_ You will be asked for you github account, as needed.
+[Gitpod](https://www.gitpod.io/) is an 100% online IDE based on [Visual Studio Code](https://github.com/gitpod-io/vscode/blob/gp-code/LICENSE.txt?lang=en-US). To initialize your environment simply click on the button below _(CTRL + Click to open in new tab)_ You will be asked for you github account, as needed.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/datastaxdevs/workshop-intro-to-graphql)
 
 
-This will bootstrap your demo environment. Be patient, it will take a couple minutes as everything loads up.
+This will bootstrap your demo environment. Be patient, it will take a few minutes as everything loads up.
 
 > **Note**: during loading of the Gitpod environment, a new tab will be tentatively opened
 > with an URL such as `https://8080-datastaxdev-[...].gitpod.io/graphiql`.
