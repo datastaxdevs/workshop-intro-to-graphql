@@ -281,7 +281,7 @@ Follow the instructions below to launch the **GraphQL Playground** provided in *
 4. Make sure `GraphQL API` is selected
 5. Locate the link to your GraphQL Playground in the text
 
-![Open Astra DB GraphQL Playground image](tutorial/images/open-playground-2.png?raw=true)
+![Open Astra DB GraphQL Playground image](tutorial/images/open-playground-2.png)
 
 <details>
 <summary><strong>Click here if you are using the "New Astra Experience" UI</strong></summary>
@@ -304,12 +304,14 @@ _This is the "Database Administrator" token you created earlier on the Astra DB 
 
 **Note**: make sure you are on the **`graphql-schema`** playground tab in this step, as this image illustrates:
 
-![GraphQL Playground and token header, Schema playground tab](tutorial/images/graphql-playground.png?raw=true)
+![GraphQL Playground and token header, Schema playground tab](tutorial/images/graphql-playground.png)
 
 > Note: the GraphQL Playground starts with a ready-to-use _temporary token_ as the `x-cassandra-token` header. But we want the queries run in the Playground
 > to be identical to those that the Netlify functions will run from code, so **please replace the token with your DB token as instructed**.
 
-#### ✅  Step 5c: In GraphQL Playground, create a table with the following mutation, making sure to replace `intrographql` if you used a different keyspace name:
+#### ✅  Step 5c: Create a table in the GraphQL Playground
+
+Run the following mutation in the `graphql-schema` playground tab, making sure to replace `intrographql` in the URL if you used a different keyspace name:
 
 - Copy the following mutation on the left panel
 
@@ -335,17 +337,22 @@ Click on the arrow in the middle of the screen to execute the query.
 
 ## 6. Insert data to DB using the GraphQL Playground
 
-#### ✅  Step 6a: In graphQL playground, switch to the second Playground tab (`graphql`). Edit the ending of the URL _shown within the Playground page_ from `system` to the keyspace name `intrographql`:
+#### ✅  Step 6a: Adjust the second playground tab to your keyspace
+
+In the GraphQL playground, switch to the second Playground tab (`graphql`). Edit the ending of the URL _shown within the Playground page_ from `system` to the keyspace name `intrographql`:
 
 ![GraphQL URL ending](tutorial/images/graphql-url-ending.png)
 
-#### ✅  Step 6b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your DB token as shown below _(Note: you did this for the `graphql-schema` playground tab, now repeat for the `graphql` playground tab!)_
+#### ✅  Step 6b: Set the token to run data queries
+
+Populate the **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your DB token as shown below _(Note: you did this for the `graphql-schema` playground tab, now repeat for the `graphql` playground tab!)_
 
 ![GraphQL Playground and token header, GraphQL playground tab](tutorial/images/graphql-playground-2b.png)
 
-#### ✅  Step 6c: In GraphQL Playground, populate the `reference_list` table with the following values
+#### ✅  Step 6c: Insert genre names with the Playground
 
-- Copy the following mutation on the left panel
+In the GraphQL Playground, populate the `reference_list` table with all values:
+copy the following mutation on the left panel
 
 ```GraphQL
 mutation insertGenres {
@@ -401,7 +408,9 @@ Click on the arrow in the middle of the screen to execute the query.
 
 ## 7. Retrieve values from DB using the GraphQL Playground
 
-#### ✅  Step 7a: In GraphQL Playground (staying on the `graphql` playground tab), list values from the table with the following query:
+#### ✅  Step 7a: Read genres with a query in the Playground
+
+In the GraphQL Playground (staying on the `graphql` playground tab), list values from the table with the following query:
 
 ```yaml
 query getAllGenre {
@@ -414,7 +423,7 @@ query getAllGenre {
 ```
 
 *👁️ Expected output*
-![Playground getAllGenre query result](tutorial/images/graphql-playground-3.png?raw=true)
+![Playground getAllGenre query result](tutorial/images/graphql-playground-3.png)
 
 ## 8. Start up React
 
@@ -424,11 +433,20 @@ Now it's time to start the React client app and query the GraphQL endpoints from
 > "Endpoints", two of them. Each GraphQL server exposes a single endpoint for everything,
 > but remember this app will query both the local DGS app and the Astra DB server!
 
-#### First, we need to run a couple commands to get things setup
-In your **`GitPod`** IDE navigate to the "Client" terminal
+First you need to run a couple commands to get things set up:
+in your **`GitPod`** IDE navigate to the "Client" terminal
 *(it should already be open for you on the bottom left)*
 and make sure you are in the **`workshop-intro-to-graphql/graphql-client-examples`** directory.
 **This is where you'll be running the nodejs/React app.**
+
+<details>
+<summary><strong>Remind me what is this "client terminal" ...</strong></summary>
+
+It is the block labeled as "3". Click on it, or use the switcher (5):
+
+![The shape of Gitpod](tutorial/images/gitpod-shape.png)
+
+</details>
 
 #### ✅ Step 8a: Execute the following command
 ```shell
@@ -569,7 +587,9 @@ Here is how the `.env` might look like (as a reference, check out the provided `
 > variables needed by the React client are: `ASTRA_DB_APPLICATION_TOKEN`, `ASTRA_DB_GRAPHQL_URL`
 > and `JAVA_GRAPHQL_ENDPOINT`.
 
-#### ✅ Step 9c: Start your React app back up with the following command
+#### ✅ Step 9c: Start your React app again
+
+Launch the following command once more:
 ```shell
 netlify dev
 ```
@@ -601,7 +621,10 @@ exports.handler = async function (event) {
   `
 ```
 
-#### ✅ Step 9e: Test this query in the GraphQL **`graphQL`** playground tab
+#### ✅ Step 9e: Test this query
+
+Go back to the GraphQL **`graphQL`** playground tab.
+
 Copy this into the playground and press the _"play"_ button to execute the query. **NOTE, you can simply append the query to the end of the list and then choose the query you wish to execute when you hit the "play" button.**
 
 ```GraphQL
@@ -622,10 +645,12 @@ Notice what happened here. We have a validation error because there is no schema
 
 ![GraphQL "Field undefined" error](graphql-field-undefined-error.png)
 
-#### ✅ Step 9f: Create the **`ShowsByName`** table with a graphQL mutation to fix the app
-Ok, so let's fix up the schema issue to resolve the error.
+#### ✅ Step 9f: Create the missing table
 
-#### ✅ Execute the following mutation in the **`graph-schema`** Playground tab
+To fix up the schema issue, and resolve the error,
+create the **`ShowsByName`** table with a graphQL mutation to fix the app.
+Execute the following mutation in the **`graph-schema`** Playground tab
+
 ```GraphQL
 mutation CreateShowsTable {
   createTable(
@@ -673,12 +698,17 @@ mutation insertShows {
 
 ![GraphQL insertShows, result](tutorial/images/graphql-insertShows_result.png)
 
-#### ✅ Step 9h: Finally, refresh your React app
-Notice this no longer displays **"Error :("**, but now correctly displays the data you just inserted (mutated). It might be fun to add some of your own data to this schema and refresh your page.
+#### ✅ Step 9h: Check the client again
+
+Finally, refresh your React app.
+
+Notice this no longer displays an error. Now it correctly displays the data you just inserted (mutated). It might be fun to add some of your own data to this schema and refresh your page.
 
 ![GraphQL, client showing shows from DB](tutorial/images/graphql-client-showing-shows.png)
 
-#### Feel free to experiment with a couple more graphQL queries now that you have some data in the table
+#### Play a bit more!
+
+Feel free to experiment with a couple more graphQL queries now that you have some data in the table
 
 Queries usually offer some way to restrict the results returned,
 in the form of parameters passed to queries. Recall the original `getAllShows`, repeated here for convenience:
@@ -725,5 +755,6 @@ query getOneShowF {
 
 
 ### That's it, you did it! Nice job!
+
 We hope this workshop gave you enough information on GraphQL to be dangerous and start you on a journey to using GraphQL in your own apps.
 Also, don't forget your [HOMEWORK](#homework).
