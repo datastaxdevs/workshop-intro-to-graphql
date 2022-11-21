@@ -14,7 +14,7 @@ Finally, this content uses **React/JS** concepts. If you are not familiar with t
 
 The materials have been built by the DataStax developer advocates team.
 
-![image](./tutorial/images/graphQL_logo.png)
+![GraphQL Logo](./tutorial/images/graphQL_logo.png)
 
 ## 🎯 Objectives
 * An overview of what GraphQL is and what makes it cool
@@ -43,6 +43,7 @@ You will have to adapt commands and paths based on your environment (including d
 <hr>
 <ul>
 <li>You will need a github account</li>
+<li>You should use Chrome or Firefox (other browsers might have trouble displaying Gitpod correctly)</li>
 <li>You will need an Astra DB account, but we'll work through that in the exercises</li>
 </ul>
 </p>
@@ -149,7 +150,10 @@ Today, in particular, we will need the string labeled "token" (the one starting 
 
 ## 3. Launch Gitpod
 
-[Gitpod](https://www.gitpod.io/) is an 100% online IDE based on [VS Code](https://github.com/gitpod-io/vscode/blob/gp-code/LICENSE.txt?lang=en-US). To initialize your environment simply click on the button below _(CTRL + Click to open in new tab)_ You will be asked for you github account, as needed.
+[Gitpod](https://www.gitpod.io/) is an 100% online IDE based on [VS Code](https://github.com/gitpod-io/vscode/blob/gp-code/LICENSE.txt?lang=en-US).
+To initialize your environment simply click on the button below _(CTRL + Click to open in new tab)_ You will be asked for you github account, as needed.
+
+**Warning**: for best results, open the link with Chrome or Firefox!
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/datastaxdevs/workshop-intro-to-graphql)
 
@@ -166,25 +170,8 @@ It just so happens that [The Netflix DGS framework](https://netflix.github.io/dg
 > _Note:_ the GraphiQL should be open already in a new tab for you; in case it isn't for some reason,
 > run this command in a Gitpod console and manually point a new tab to the URL it prints:```echo `gp url 8080`/graphiql```.
 
-#### Here's the schema defined in our java backend per `graphql-backend-examples/src/main/resources/schema/schema.graphqls`
-
-```GraphQL
-type Query {
-    shows(titleFilter: String): [Show]
-    genres(labelFilter: String): [Genre]
-}
-
-type Show {
-    title: String
-    releaseYear: Int
-}
-
-type Genre {
-    value: String!
-}
-```
-
-Something to point out here is there is no database just yet. We are powering the graphQL schema via the back-end Java application and the graphQL data is completely hardcoded. Take a look at both **`ShowsDatafetcher.java`** and **`GenresDatafetcher.java`** located in **`graphql-backend-examples/src/main/java/com/example/demo`** to find the simple implementations using DGS annotations `@DgsComponent` and `@DgsQuery`.
+Something to point out here is there is no database just yet. We are powering the graphQL schema via the back-end Java application and the graphQL data is completely hardcoded.
+Take a look at both **`ShowsDatafetcher.java`** and **`GenresDatafetcher.java`** located in **`graphql-backend-examples/src/main/java/com/example/demo`** to find the simple implementations using DGS annotations `@DgsComponent` and `@DgsQuery`.
 
 #### Now, let's try out some graphQL queries
 Plug these into the GraphiQL IDE that launched into a new tab from GitPod.
@@ -227,7 +214,32 @@ query ShowsAndGenres {
 }
 ```
 
-![Screen Shot 2021-09-14 at 10 56 10 AM](https://user-images.githubusercontent.com/23346205/133281572-9f42d927-639b-4993-aefe-18c700a1575a.png)
+![GraphiQL queries](tutorial/images/graphiql-queries.png)
+
+#### Compare the GraphQL schema
+
+The objects known to a GraphQL API are defined starting from its "Schema".
+In the case of our DGS Java application, the schema is found in
+`graphql-backend-examples/src/main/resources/schema/schema.graphqls`.
+Take a look at its contents: notice the special `Query` item that defines
+the possible queries and, after that, the user-defined types available to
+the API:
+
+```GraphQL
+type Query {
+    shows(titleFilter: String): [Show]
+    genres(labelFilter: String): [Genre]
+}
+
+type Show {
+    title: String
+    releaseYear: Int
+}
+
+type Genre {
+    value: String!
+}
+```
 
 ## 5. Experiment with Astra DB's GraphQL Playground
 
@@ -237,29 +249,34 @@ Follow the instructions below to launch the **GraphQL Playground** provided in *
 
 #### ✅  Step 5a: Open GraphQL Playground:
 
+0. Ensure you are logged on to your [Astra](https://astra.datastax.com) account
 1. Click on the "workshops" database on the left (expanding the list if needed)
 2. Click `Connect` TAB
 3. Click the `APIs`  connection method
 4. Make sure `GraphQL API` is selected
 5. Locate the link to your GraphQL Playground in the text
 
-![image](tutorial/images/open-playground-2.png?raw=true)
+![Open Astra DB GraphQL Playground image](tutorial/images/open-playground-2.png?raw=true)
 
 <details>
 <summary><strong>Click here if you are using the "New Astra Experience" UI</strong></summary>
 
-![image](tutorial/images/open-playground-2-wh.png)
+![Open Astra DB GraphQL Playground image, new Astra UI](tutorial/images/open-playground-2-wh.png)
 
 </details>
 
 
-#### ✅  Step 5b: In GraphQL Playground, **Populate HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token as shown below (including the `AstraCS:` part)
-✅ Ensure you have the **`graphql-schema`** tab selected for this step
+#### ✅  Step 5b: Insert the Astra DB Token to run schema queries
+
+In the GraphQL Playground, **Populate HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your token (including the `AstraCS:` part).
+_This is the "Database Administrator" token you created earlier on the Astra DB dashboard (Step 2 above)._
+
+**Note**: make sure you are on the **`graphql-schema`** playground tab in this step, as this image illustrates:
+
+![GraphQL Playground and token header, Schema playground tab](tutorial/images/graphql-playground.png?raw=true)
 
 > Note: the GraphQL Playground starts with a ready-to-use _temporary token_ as the `x-cassandra-token` header. But we want the queries run in the Playground
 > to be identical to those that the Netlify functions will run from code, so **please replace the token with your DB token as instructed**.
-
-![image](tutorial/images/graphql-playground.png?raw=true)
 
 #### ✅  Step 5c: In GraphQL Playground, create a table with the following mutation, making sure to replace `intrographql` if you used a different keyspace name:
 
@@ -283,7 +300,7 @@ mutation {
 
 Click on the arrow in the middle of the screen to execute the query.
 
-![image](tutorial/images/playground-1.png?raw=true)
+![Execute a query in GraphQL Playground](tutorial/images/playground-1.png?raw=true)
 
 ## 6. Insert data to DB using the GraphQL Playground
 
@@ -291,9 +308,9 @@ Click on the arrow in the middle of the screen to execute the query.
 
 ![GraphQL URL ending](tutorial/images/graphql-url-ending.png)
 
-#### ✅  Step 6b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your DB token as shown below _(Note: you did this for the `graphql-schema` tab, now repeat for the `graphql` tab!)_
+#### ✅  Step 6b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your DB token as shown below _(Note: you did this for the `graphql-schema` playground tab, now repeat for the `graphql` playground tab!)_
 
-![image](tutorial/images/graphql-playground-2.png?raw=true)
+![GraphQL Playground and token header, GraphQL playground tab](tutorial/images/graphql-playground-2.png?raw=true)
 
 #### ✅  Step 6c: In GraphQL Playground, populate the `reference_list` table with the following values
 
@@ -353,7 +370,7 @@ Click on the arrow in the middle of the screen to execute the query.
 
 ## 7. Retrieve values from DB using the GraphQL Playground
 
-#### ✅  Step 7a: In GraphQL Playground (staying on the `graphql` tab), list values from the table with the following query:
+#### ✅  Step 7a: In GraphQL Playground (staying on the `graphql` playground tab), list values from the table with the following query:
 
 ```yaml
 query getAllGenre {
@@ -366,7 +383,7 @@ query getAllGenre {
 ```
 
 *👁️ Expected output*
-![image](tutorial/images/graphql-playground-3.png?raw=true)
+![Playground getAllGenre query result](tutorial/images/graphql-playground-3.png?raw=true)
 
 ## 8. Start up React
 
@@ -469,7 +486,7 @@ Notice how the field (value) matches our **graphQL** `Genres` schema exactly.
 ```javascript
 // Finally, if all other checks pass get the data
 // from the payload via gqlResult state and inject it into the DOM
-// Notice how the payload example below and the fields "title" and "releaseYear" match exactly
+// Notice how the payload example below and the field "value" match exactly
 // {"data":{"genres":[{"value":"Action"},{"value":"Anime"}...
 return gqlResult.data.genres.map(({ value }) => (
     <div key={value}>
@@ -553,7 +570,7 @@ exports.handler = async function (event) {
   `
 ```
 
-#### ✅ Step 9e: Test this query in the GraphQL Playground **`graphQL`** tab
+#### ✅ Step 9e: Test this query in the GraphQL **`graphQL`** playground tab
 Copy this into the playground and press the _"play"_ button to execute the query. **NOTE, you can simply append the query to the end of the list and then choose the query you wish to execute when you hit the "play" button.**
 
 ```GraphQL
@@ -567,17 +584,17 @@ query getAllShows {
     }
 ```
 
-![Screen Shot 2021-09-13 at 10 22 16 PM](https://user-images.githubusercontent.com/23346205/133184337-94f3fe7b-4f25-47d4-acda-86e1e47af117.png)
+![GraphQL getAllShows execution](tutorial/images/graphql-getallshows.png)
 
 #### View Results
 Notice what happened here. We have a validation error because there is no schema associated with the query we just executed. GraphQL uses a typed validation system so this is something to expect if a query is malformed, missing a schema, or something along those lines. You will want to control for this in your code.
 
-![Screen Shot 2021-09-13 at 10 25 31 PM](https://user-images.githubusercontent.com/23346205/133184395-5436558a-bb80-4b45-a852-193cfbef2ba8.png)
+![GraphQL "Field undefined" error](graphql-field-undefined-error.png)
 
 #### ✅ Step 9f: Create the **`ShowsByName`** table with a graphQL mutation to fix the app
 Ok, so let's fix up the schema issue to resolve the error.
 
-#### ✅ Execute the following mutation in the **`graph-schema`** tab of the GraphQL Playground
+#### ✅ Execute the following mutation in the **`graph-schema`** Playground tab
 ```GraphQL
 mutation CreateShowsTable {
   createTable(
@@ -593,15 +610,15 @@ mutation CreateShowsTable {
 }
 ```
 
-![Screen Shot 2021-09-13 at 10 34 26 PM](https://user-images.githubusercontent.com/23346205/133185375-5f25a859-0a7d-49b5-a660-a8a6c484caaf.png)
+![GraphQL CreateShowsTable query](tutorial/images/graphql-CreateShowsTable.png)
 
 #### ✅ Verify result
 Once executed you should see a result like this
 
-![Screen Shot 2021-09-13 at 10 34 34 PM](https://user-images.githubusercontent.com/23346205/133185415-72ed5950-2b36-44b4-96d5-a64456252d71.png)
+![GrahQL CreateShowsTable result](tutorial/images/graphql-CreateShowsTable_result.png)
 
 #### ✅ Step 9g: Add some data
-Now, go back to the **`graphql`** tab of the GraphQL Playground and add the following mutation
+Now, go back to the **`graphql`** playground tab and add the following mutation
 ```GraphQL
 mutation insertShows {
   stranger: insertshow_by_name (
@@ -619,16 +636,16 @@ mutation insertShows {
 }
 ```
 
-![Screen Shot 2021-09-13 at 10 39 50 PM](https://user-images.githubusercontent.com/23346205/133185954-56a3ce2b-1649-47ce-8eb6-b474bdbc88d8.png)
+![GraphQL "insertShows"](tutorial/images/graphql-insertShows.png)
 
 #### ✅ Check the result
 
-![Screen Shot 2021-09-13 at 10 39 58 PM](https://user-images.githubusercontent.com/23346205/133185982-95f4e84b-242e-4317-9605-e8585caa8e8e.png)
+![GraphQL insertShows, result](tutorial/images/graphql-insertShows_result.png)
 
 #### ✅ Step 9h: Finally, refresh your React app
 Notice this no longer displays **"Error :("**, but now correctly displays the data you just inserted (mutated). It might be fun to add some of your own data to this schema and refresh your page.
 
-![Screen Shot 2021-09-13 at 10 41 03 PM](https://user-images.githubusercontent.com/23346205/133186039-9c5a06a1-6ac9-47c5-a984-c8809683636f.png)
+![GraphQL, client showing shows from DB](tutorial/images/graphql-client-showing-shows.png)
 
 #### Feel free to experiment with a couple more graphQL queries now that you have some data in the table
 

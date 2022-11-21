@@ -56,7 +56,7 @@ function ReferenceList() {
    
   // Finally, if all other checks pass get the data
   // from the payload via gqlResult state and inject it into the DOM
-  // Notice how the payload example below and the fields "title" and "releaseYear" match exactly
+  // Notice how the payload example below and the field "value" match exactly
   // {"data":{"reference_list":{"values":[{"value":"Action"},{"value":"Anime"}...
   return gqlResult.data.reference_list.values.map(({ value }) => (
     <div key={value}>

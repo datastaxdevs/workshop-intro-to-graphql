@@ -55,7 +55,7 @@ function Genres() {
    
   // Finally, if all other checks pass get the data
   // from the payload via gqlResult state and inject it into the DOM
-  // Notice how the payload example below and the fields "title" and "releaseYear" match exactly
+  // Notice how the payload example below and the field "value" match exactly
   // {"data":{"genres":[{"value":"Action"},{"value":"Anime"}...
   return gqlResult.data.genres.map(({ value }) => (
     <div key={value}>
