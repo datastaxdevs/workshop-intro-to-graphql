@@ -163,6 +163,21 @@ This will bootstrap your demo environment. Be patient, it will take a few minute
 > with an URL such as `https://8080-datastaxdev-[...].gitpod.io/graphiql`.
 > Please **CHECK YOUR POPUP BLOCKER** and allow it before continuing: this will be your GraphiQL interface!
 
+<details>
+<summary><strong>Show me how Gitpod looks like for this workshop</strong></summary>
+
+Gitpod starts with a file explorer on the left (1), an editor panel on the top (2),
+and - in the case of this specific environment - two consoles side by side,
+one to launch commands and later start the Node app (3) and one busy with
+running the Java backend (4). On the right you will find a console switcher to
+easily locate any console and make it active (but even just clicking
+on the desired console would do the trick).
+
+![The shape of Gitpod](tutorial/images/gitpod-shape.png)
+
+</details>
+
+
 ## 4. Experiment with GraphiQL
 It just so happens that [The Netflix DGS framework](https://netflix.github.io/dgs/getting-started/) comes with GraphiQL already integrated and ready for use. This is a wonderful tool you can use to explore graphQL queries and mutations. Let's experiment with this now!
 
@@ -170,7 +185,18 @@ It just so happens that [The Netflix DGS framework](https://netflix.github.io/dg
 > run this command in a Gitpod console and manually point a new tab to the URL it prints:```echo `gp url 8080`/graphiql```.
 
 Something to point out here is there is no database just yet. We are powering the graphQL schema via the back-end Java application and the graphQL data is completely hardcoded.
-Take a look at both **`ShowsDatafetcher.java`** and **`GenresDatafetcher.java`** located in **`graphql-backend-examples/src/main/java/com/example/demo`** to find the simple implementations using DGS annotations `@DgsComponent` and `@DgsQuery`.
+Take a look at both **`ShowsDatafetcher.java`** and **`GenresDatafetcher.java`** located in **`graphql-backend-examples/src/main/java/com/example/demo`**
+to find the simple implementations using DGS annotations `@DgsComponent` and `@DgsQuery`.
+
+<details>
+<summary><strong>Show me how to open these files in Gitpod</strong></summary>
+
+In the left toolbar, choose the first tool ("Explorer") and navigate the directory to the desired directory; then, clicking on the files will open them in the editor (topmost panel on the right).
+
+![Open files in Gitpod](tutorial/images/open-java-DGS-files-in-gitpod.png)
+
+</details>
+
 
 #### Now, let's try out some graphQL queries
 Plug these into the GraphiQL IDE that launched into a new tab from GitPod.
@@ -264,6 +290,12 @@ Follow the instructions below to launch the **GraphQL Playground** provided in *
 
 </details>
 
+**Note**: in the following, we will refer to "playground tabs". These are _not_ the tabs
+in your browser, rather they are tabs _within_ the Playground application,
+to switch between the (logically distinct) realms of "managing schema" and "managing data in the tables"
+(more on that later).
+
+![Playground tabs VS Browser tabs](tutorial/images/tabs-vs-playgroundtabs-labeled.png)
 
 #### ✅  Step 5b: Insert the Astra DB Token to run schema queries
 
@@ -299,7 +331,7 @@ mutation {
 
 Click on the arrow in the middle of the screen to execute the query.
 
-![Execute a query in GraphQL Playground](tutorial/images/playground-1.png?raw=true)
+![Execute a query in GraphQL Playground](tutorial/images/playground-1.png)
 
 ## 6. Insert data to DB using the GraphQL Playground
 
@@ -309,7 +341,7 @@ Click on the arrow in the middle of the screen to execute the query.
 
 #### ✅  Step 6b: Populate **HTTP HEADER** variable `x-cassandra-token` on the bottom of the page with your DB token as shown below _(Note: you did this for the `graphql-schema` playground tab, now repeat for the `graphql` playground tab!)_
 
-![GraphQL Playground and token header, GraphQL playground tab](tutorial/images/graphql-playground-2.png?raw=true)
+![GraphQL Playground and token header, GraphQL playground tab](tutorial/images/graphql-playground-2b.png)
 
 #### ✅  Step 6c: In GraphQL Playground, populate the `reference_list` table with the following values
 
@@ -693,4 +725,5 @@ query getOneShowF {
 
 
 ### That's it, you did it! Nice job!
-We hope this workshop gave you enough information on GraphQL to be dangerous and start you on a journey to using GraphQL in your own apps. Also, don't forget to do the [HOMEWORK](#homework)
+We hope this workshop gave you enough information on GraphQL to be dangerous and start you on a journey to using GraphQL in your own apps.
+Also, don't forget your [HOMEWORK](#homework).
