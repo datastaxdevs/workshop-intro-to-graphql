@@ -643,7 +643,7 @@ query getAllShows {
 #### View Results
 Notice what happened here. We have a validation error because there is no schema associated with the query we just executed. GraphQL uses a typed validation system so this is something to expect if a query is malformed, missing a schema, or something along those lines. You will want to control for this in your code.
 
-![GraphQL "Field undefined" error](graphql-field-undefined-error.png)
+![GraphQL "Field undefined" error](tutorial/images/graphql-field-undefined-error.png)
 
 #### ✅ Step 9f: Create the missing table
 
