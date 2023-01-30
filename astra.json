@@ -5,9 +5,9 @@
   "skillLevel": "Beginner",
   "language":["java", "javascript", "nodejs"],
   "stack": ["cassandra", "jamstack", "netlify"],
-  "githubUrl": "",
-  "badge": "",
-  "youTubeUrl": [ ""],
+  "githubUrl": "https://github.com/datastaxdevs/workshop-intro-to-graphql",
+  "badge": "https://media.badgr.com/uploads/badges/6d9d20f0-8a8e-4cc9-9cf2-dc4e1baa97d6.png",
+  "youTubeUrl": ["https://www.youtube.com/watch?v=Z83XTWhav7g"],
   "tags": [
     { "name": "workshop" },
     { "name": "nosql" },
