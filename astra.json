@@ -14,8 +14,7 @@
     { "name": "cassandra" },
     { "name": "graphql" },
     { "name": "gitpod" },
-    { "name": "astradb" },
-    { "name": "drivers" }
+    { "name": "astradb" }
   ],
   "category": "workshop",
   "usecases": []
